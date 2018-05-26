@@ -1,0 +1,14 @@
+cref: True
+linkReferences: True
+codeBlockCaptions: True
+autoSectionLabels: True
+numberSections: True
+sectionsDepth: 3
+figureTemplate: |
+  *$$figureTitle$$* $$i$$$$titleDelim$$ $$t$$
+subfigureTemplate: |
+  *$$figureTitle$$* $$i$$$$titleDelim$$ $$t$$. $$ccs$$
+tableTemplate: |
+  *$$tableTitle$$* $$i$$$$titleDelim$$ $$t$$
+listingTemplate: |
+  *$$listingTitle$$* $$i$$$$titleDelim$$ $$t$$
