@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="600px" height="400px" viewBox="0 0 600 400" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 48.2 (47327) - http://www.bohemiancoding.com/sketch -->
+    <title>images/real-model</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <path d="M85.8203125,201.003906 L528.147562,201.003906" id="path-1"></path>
+        <rect id="path-2" x="315" y="12" width="39" height="372"></rect>
+        <rect id="path-3" x="235" y="120" width="39" height="163"></rect>
+        <rect id="path-4" x="165" y="150" width="39" height="102"></rect>
+        <polygon id="path-5" points="43 174 127 174 113.451613 224 56.5483871 224"></polygon>
+    </defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="images/real-model">
+            <g id="Path-3">
+                <use stroke="#979797" stroke-width="9" xlink:href="#path-1"></use>
+                <use stroke="#B8B8B8" stroke-width="6" xlink:href="#path-1"></use>
+            </g>
+            <g id="Rectangle">
+                <use fill="#EFEFEF" fill-rule="evenodd" xlink:href="#path-2"></use>
+                <rect stroke="#979797" stroke-width="1" x="315.5" y="12.5" width="38" height="371"></rect>
+            </g>
+            <g id="Rectangle-Copy">
+                <use fill="#EFEFEF" fill-rule="evenodd" xlink:href="#path-3"></use>
+                <rect stroke="#979797" stroke-width="1" x="235.5" y="120.5" width="38" height="162"></rect>
+            </g>
+            <g id="Rectangle-Copy-2">
+                <use fill="#EFEFEF" fill-rule="evenodd" xlink:href="#path-4"></use>
+                <rect stroke="#979797" stroke-width="1" x="165.5" y="150.5" width="38" height="101"></rect>
+            </g>
+            <g id="Rectangle-Copy-3">
+                <use fill="#EFEFEF" fill-rule="evenodd" xlink:href="#path-5"></use>
+                <path stroke="#979797" stroke-width="1" d="M43.6535146,174.5 L56.930934,223.5 L113.069066,223.5 L126.346485,174.5 L43.6535146,174.5 Z"></path>
+            </g>
+            <text id="R-A-M" font-family="SortsMillGoudy-Italic, Sorts Mill Goudy" font-size="20" font-style="italic" font-weight="normal" line-spacing="20" letter-spacing="2.54999995" fill="#000000">
+                <tspan x="326" y="192">R</tspan>
+                <tspan x="326" y="212">A</tspan>
+                <tspan x="326" y="232">M</tspan>
+            </text>
+            <text id="L2" font-family="SortsMillGoudy-Italic, Sorts Mill Goudy" font-size="20" font-style="italic" font-weight="normal" line-spacing="20" letter-spacing="2.54999995" fill="#000000">
+                <tspan x="241" y="208">L2</tspan>
+            </text>
+            <text id="L1" font-family="SortsMillGoudy-Italic, Sorts Mill Goudy" font-size="20" font-style="italic" font-weight="normal" line-spacing="20" letter-spacing="2.54999995" fill="#000000">
+                <tspan x="171" y="209">L1</tspan>
+            </text>
+            <text id="CPU" font-family="SortsMillGoudy-Italic, Sorts Mill Goudy" font-size="20" font-style="italic" font-weight="normal" line-spacing="20" letter-spacing="2.54999995" fill="#000000">
+                <tspan x="62" y="209">CPU</tspan>
+            </text>
+            <g id="Group" transform="translate(481.000000, 128.000000)">
+                <path d="M0,114.654411 L0,18 L80.9898489,18 L80.9898489,113.878906 L80.9776138,113.879023 C80.992499,114.08518 81,114.29219 81,114.5 C81,124.717268 62.8675324,133 40.5,133 C18.2452448,133 0.182955544,124.80058 0.00138109779,114.654398 Z" id="Combined-Shape" stroke="#979797" fill="#EFEFEF"></path>
+                <ellipse id="Oval" stroke="#979797" fill="#EFEFEF" cx="40.5" cy="18.5" rx="40.5" ry="18.5"></ellipse>
+                <text id="Disk" font-family="SortsMillGoudy-Italic, Sorts Mill Goudy" font-size="20" font-style="italic" font-weight="normal" line-spacing="20" letter-spacing="2.54999995" fill="#000000">
+                    <tspan x="16" y="85">Disk</tspan>
+                </text>
+            </g>
+        </g>
+    </g>
+</svg>
