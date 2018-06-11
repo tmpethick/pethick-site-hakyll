@@ -45,8 +45,8 @@ The most prominent features currently support are server side math rendering to 
   - [ ] Margin figures.
   - [ ] Wide figures.
   - [ ] Wide tables.
-- [ ] Google analytics.
-- [ ] Github compatible.
+- [x] Google analytics.
+- [x] Github compatible.
 - [ ] Improve markdown:
   - [ ] Ignore indentation (like latex).
   - [ ] Comments in markdown (like latex).

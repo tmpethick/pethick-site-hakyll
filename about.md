@@ -9,8 +9,8 @@ This site exists so that I can write about interesting topics I stumble upon in 
 I have written on a variety of areas outside of this blog:
 
 - [Compilation][prover] of a theorem prover written in Isabelle into Prolog using catamorphism in Haskell.
-- Environmental sound classification using [convolutional auto encoders with unpooling][CAE].
-- *A Process Calculus for Design and Modeling of Retro-synthesis* (published at [EJC 2018 conference][ejc2018]).
+- Environmental sound classification using [convolutional autoencoders][CAE] with an custom built unpooling layer in keras.
+- *A Process Calculus for Design and Modeling of Retro-synthesis* (published and presented at [EJC 2018 conference][ejc2018]).
 - [Bachelor][mcmc] on markov chain monte carlo and probabilistic programming.
 - A [summary][DEL] of dynamic epistemic logic and game theory.
 
