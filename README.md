@@ -26,7 +26,7 @@ stack build && stack exec site rebuild && stack exec site watch
 
 # TODO
 
-The most prominent features currently support are server side math rendering to support arbitrary latex packages, references with hyperlinks and citations.
+The most prominent features currently supported are server side math rendering to support arbitrary latex packages, references with hyperlinks and citations.
 
 - [x] Render math to image to support arbitrary latex packages (using [`latex-formulae`](https://github.com/liamoc/latex-formulae)).
   - [ ] Specify packages in `preamble` using `[String]` instead of `String` for readability.

@@ -25,7 +25,7 @@ I have enjoyed being a teaching assistant in the following courses:
 - app development in react
 - [desktop development][campusnet] with electron -->
 
-[DEL]: http://pethick.dk/files/epistemic-planning-and-games.pdf
+[DEL]: /files/epistemic-planning-and-games.pdf
 [mcmc]: https://github.com/tmpethick/mcmc
 [ejc2018]: http://www.ejc-conference.org/
 [prover]: https://github.com/tmpethick/simple-prover-pl

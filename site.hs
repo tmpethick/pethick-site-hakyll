@@ -110,6 +110,10 @@ main :: IO ()
 main = do
     renderFormulae <- initFormulaCompilerDataURI 1000 defaultEnv
     hakyll $ do
+        match "files/*" $ do
+            route   idRoute
+            compile copyFileCompiler
+
         match "images/*" $ do
             route   idRoute
             compile copyFileCompiler
