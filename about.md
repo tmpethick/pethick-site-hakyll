@@ -2,12 +2,11 @@
 title: About
 ---
 
-My name is Thomas Pethick. 
-I am currently studying computer science at the Technical University of Denmark.
-This site exists so that I can write about interesting topics I stumble upon in my studies.
+I am currently doing a PhD at EPFL in the [LIONS lab][lions] with Prof. Volkan Cehver.
 
 I have written on a variety of areas outside of this blog:
 
+- My Master thesis on [Scalable Gaussian Processes for Economic Models][master].
 - Bayesian Optimization using an [Ensembled Deep Network for Global Optimization][ensembled-dngo] which explores the behavior of an ensembled variant of the architecture proposed by [(Snoek et al 2015)][snoek2015] on various Bayesian Optimization benchmark problems.
 - Environmental sound classification using [convolutional autoencoders][CAE] with an custom built unpooling layer in keras.
 - [Bachelor][mcmc] on markov chain monte carlo and probabilistic programming.
@@ -36,3 +35,5 @@ I have enjoyed being a teaching assistant in the following courses:
 [campusnet]: http://pethick.dk/campusnet-electron/
 [ensembled-dngo]: https://github.com/tmpethick/ensembled-dngo
 [snoek2015]: https://arxiv.org/abs/1502.05700
+[master]: https://github.com/tmpethick/thesis-code
+[lions]: https://lions.epfl.ch/
