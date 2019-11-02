@@ -1,19 +1,3 @@
-@font-face {
-  font-family: "sorts-mill-goudy";
-  src: url("/font/GoudyStM-webfont.eot");
-  src: url("/font/GoudyStM-webfont.eot?#iefix") format("embedded-opentype"),url("/font/GoudyStM-webfont.woff") format("woff"),url("/font/GoudyStM-webfont.ttf") format("truetype"),url("/font/GoudyStM-webfont.svg#sorts-mill-goudy") format("svg");
-  font-weight: normal;
-  font-style: normal
-}
-
-@font-face {
-  font-family: "sorts-mill-goudy-italic";
-  src: url("/font/GoudyStM-Italic-webfont.eot");
-  src: url("/font/GoudyStM-Italic-webfont.eot?#iefix") format("embedded-opentype"),url("/font/GoudyStM-Italic-webfont.woff") format("woff"),url("/font/GoudyStM-Italic-webfont.ttf") format("truetype"),url("/font/GoudyStM-Italic-webfont.svg#sorts-mill-goudy-italic") format("svg");
-  font-weight: normal;
-  font-style: normal
-}
-
 /*************************************************/
 /* Layout */
 
@@ -35,31 +19,32 @@
 /* Font definitions */
 
 body {
-  font-family: "sorts-mill-goudy";
+  font-family: "Sorts Mill Goudy";
   color: #333;
 }
 
 em {
-  font-style: normal;
-  font-family: "sorts-mill-goudy-italic"
+  font-style: italic;
+  font-family: "Sorts Mill Goudy"
 }
 
 .sidebar {
-  font-family: "sorts-mill-goudy";
+  font-family: "Sorts Mill Goudy";
 }
 
 .sidebar-about h1 {
-  font-family: "sorts-mill-goudy";
+  font-family: "Sorts Mill Goudy";
   font-size: 2.8rem;
 }
 
 .sidebar-nav {
-  font-family: "sorts-mill-goudy";
+  font-family: "Sorts Mill Goudy";
   font-size: 1.15rem
 }
 
 blockquote {
-  font-family: "sorts-mill-goudy-italic";
+  font-style: italic;
+  font-family: "Sorts Mill Goudy";
 }
 
 
@@ -166,10 +151,28 @@ img {
 }
 
 /*************************************************/
-/* sidenotes */
+/* Counters */
+/* (have to be reset all together) */
 
 body {
-  counter-reset: sidenote-counter;
+  counter-reset: 
+    sidenote-counter
+    lemma
+    theorem
+    corollary
+    definition;
+}
+
+/*************************************************/
+/* sidenotes */
+
+ 
+/* If inside a theorem block we need to take the margin into account */
+.theorem .sidenote,
+.lemma .sidenote,
+.corollary .sidenote,
+.definition .sidenote {
+  margin-right: -73%
 }
 
 .sidenote, .marginnote { float: right;
@@ -178,25 +181,32 @@ body {
   width: 50%;
   margin-top: 0;
   margin-bottom: 0;
-  font-size: 1.1rem;
+  font-size: 1rem;
   line-height: 1.3;
   vertical-align: baseline;
   position: relative; }
 
-.sidenote-number { counter-increment: sidenote-counter; }
+.sidenote-number { 
+  counter-increment: sidenote-counter; 
+}
 
-.sidenote-number:after, .sidenote:before { content: counter(sidenote-counter) " ";
+.sidenote-number:after, .sidenote:before {
                     font-family: et-book-roman-old-style;
                     position: relative;
                     vertical-align: baseline; }
 
 .sidenote-number:after { content: counter(sidenote-counter);
-  font-size: 1rem;
-  top: -0.5rem;
-  left: 0.1rem; }
+  font-size: 0.8rem;
+  top: -0.3rem;
+  left: 0.1rem;}
 
-.sidenote:before { content: counter(sidenote-counter) " ";
-top: -0.5rem; }
+.sidenote:before { 
+  content: counter(sidenote-counter) " ";
+  font-size: 0.8rem;
+  top: -0.5rem;
+  display: inline-block;
+  margin-right: 0.3rem; 
+}
 
 blockquote .sidenote, blockquote .marginnote { margin-right: -82%;
                         min-width: 59%;
@@ -223,4 +233,94 @@ label.margin-toggle:not(.sidenote-number) { display: none; }
     position: relative; 
   }
   label { cursor: pointer; }
+}
+
+/*************************************************/
+/* Quotes */
+
+.theorem,
+.lemma,
+.corollary,
+.algorithm,
+.definition {
+  counter-increment: theorem;
+  padding: .5rem 1rem;
+  margin: .8rem 0;
+  display: block;
+  font-style: italic;
+  border-style: solid;
+  border-color: #e5e5e5;
+  border-width: 1px 1px 1px .30rem;
+}
+.theorem p:first-child,
+.lemma p:first-child,
+.corollary p:first-child,
+.algorithm p:first-child,
+.definition p:first-child {
+  display: inline-block;
+}
+.theorem p:last-child,
+.lemma p:last-child,
+.corollary p:last-child,
+.algorithm p:last-child,
+.definition p:last-child {
+  margin-bottom: 0;
+}
+@media (max-width: 30em) {
+  .theorem,
+  .lemma,
+  .corollary,
+  .algorithm,
+  .definition {
+    text-align: left;
+  }
+}
+@media (min-width: 30em) {
+  .theorem,
+  .lemma,
+  .corollary,
+  .algorithm,
+  .definition {
+    padding-right: 5rem;
+    padding-left: 1.25rem;
+  }
+}
+
+.theorem:before,
+.lemma:before,
+.corollary:before,
+.algorithm:before,
+.definition:before  {
+  display: inline;
+  font-weight: bold;
+  font-style: normal;
+}
+
+.theorem:before {
+  content: "Theorem " counter(theorem) ".";
+}
+.lemma:before {
+  content: "Lemma " counter(theorem) ".";
+}
+.corollary:before {
+  content: "Corollary " counter(theorem) ".";
+}
+.algorithm:before {
+  content: "Algorithm " counter(theorem) ".";
+}
+.definition:before  {
+  content: "Definition " counter(theorem) ".";
+}
+
+.proof:before {
+  content: "Proof:";
+  font-style: italic;
+}
+
+.proof:after {
+  display: block;
+  content: "□";
+  font-style: italic;
+  font-size: 1.4rem;
+  text-align: right;
 }

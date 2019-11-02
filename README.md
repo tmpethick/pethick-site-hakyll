@@ -18,6 +18,12 @@ To do a full rebuild and start watching the files:
 stack build && stack exec site rebuild && stack exec site watch
 ```
 
+To enable livereload install the LiveReload browser plugin and run:
+```
+npm install
+node livereload.js
+```
+
 ## Publish
 
 ```
@@ -52,10 +58,14 @@ The most prominent features currently supported are server side math rendering t
   - [ ] Comments in markdown (like latex).
 - [ ] Hyperlinks for citations <sup id="a1">[1](#link-citation-footnote)</sup>.
 - [ ] PDF output using latex.
+  - [ ] See https://ickc.github.io/pandoc-amsthm/ for going from our thm/lm/proof markdown syntax to latex.
 - [ ] Make subfigure output semantic (use `figure` and `figcaption`).
 - [ ] Feed.
 - [ ] Tags.
 - [x] Live reload (see https://github.com/jaspervdj/hakyll/issues/140)
+- [ ] Fix styling for sidenotes
+- [ ] Remove left sidebar
+- [ ] Theorem style: possibly use pandocs new content-blocks `::: theorem` https://github.com/vsch/flexmark-java/issues/327
 
 # Guide to Self
 
