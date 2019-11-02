@@ -1,3 +1,3 @@
 livereload = require('livereload');
 server = livereload.createServer();
-server.watch(__dirname + "/_site");
+server.watch(__dirname + "/_site", delay=2);
