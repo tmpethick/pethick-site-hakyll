@@ -26,7 +26,7 @@ You can also find all the posts in chronological order in the [archive](/archive
   Allows one to import `.mht` files exported from OneNote into Anki.
 <!-- - Haskell Spanning Tree -->
 
-... and more on [Github][4] including [this site][5].
+... and more on [Github][4] including [this site][5] which is build by <a href="http://jaspervdj.be/hakyll">Hakyll</a> with some added $\text{\LaTeX}$ goods.
 
 [1]: https://github.com/tmpethick/simple-prover-pl
 [2]: http://pethick.dk/campusnet-electron/

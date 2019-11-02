@@ -133,7 +133,7 @@ main = do
 
         match ("*.md" .&&. complement "README.md") $ do
             route cleanRoute
-            compile $ pandocCompiler
+            compile $ bibtexCompiler renderFormulae
                 >>= loadAndApplyTemplate "templates/page.html"    defaultContext
                 >>= loadAndApplyTemplate "templates/default.html" defaultContext
                 >>= relativizeUrls
