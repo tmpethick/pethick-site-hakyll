@@ -2,16 +2,22 @@
 /* Layout */
 
 @media (min-width: 48em) {
-  .sidebar {
-    width: 15rem;
+  .content p,
+  .theorem,
+  .lemma,
+  .corollary,
+  .algorithm,
+  .def  
+  {
+    width: 55%;
   }
-}
 
-@media (min-width: 48em) {
-  .content {
-    max-width: 38rem;
-    margin-left: 17rem;
-    margin-right: 2rem;
+  .theorem p,
+  .lemma p,
+  .corollary p,
+  .algorithm p,
+  .def p {
+    width: auto;
   }
 }
 
@@ -32,14 +38,8 @@ em {
   font-family: "Sorts Mill Goudy";
 }
 
-.sidebar-about h1 {
-  font-family: "Sorts Mill Goudy";
-  font-size: 2.8rem;
-}
-
 .sidebar-nav {
   font-family: "Sorts Mill Goudy";
-  font-size: 1.15rem
 }
 
 blockquote {
@@ -168,20 +168,20 @@ body {
 
  
 /* If inside a theorem block we need to take the margin into account */
-.theorem .sidenote,
+/* .theorem .sidenote,
 .lemma .sidenote,
 .corollary .sidenote,
-.definition .sidenote {
+.def .sidenote {
   margin-right: -73%
-}
+} */
 
 .sidenote, .marginnote { float: right;
   clear: right;
   margin-right: -60%;
   width: 50%;
-  margin-top: 0;
+  margin-top: 0.5rem;
   margin-bottom: 0;
-  font-size: 1rem;
+  font-size: 0.8rem;
   line-height: 1.3;
   vertical-align: baseline;
   position: relative; }
@@ -242,8 +242,7 @@ label.margin-toggle:not(.sidenote-number) { display: none; }
 .lemma,
 .corollary,
 .algorithm,
-.definition {
-  counter-increment: theorem;
+.def {
   padding: .5rem 1rem;
   margin: .8rem 0;
   display: block;
@@ -256,14 +255,14 @@ label.margin-toggle:not(.sidenote-number) { display: none; }
 .lemma p:first-child,
 .corollary p:first-child,
 .algorithm p:first-child,
-.definition p:first-child {
+.def p:first-child {
   display: inline-block;
 }
-.theorem p:last-child,
-.lemma p:last-child,
-.corollary p:last-child,
-.algorithm p:last-child,
-.definition p:last-child {
+.theorem *:last-child,
+.lemma *:last-child,
+.corollary *:last-child,
+.algorithm *:last-child,
+.def *:last-child {
   margin-bottom: 0;
 }
 @media (max-width: 30em) {
@@ -271,7 +270,7 @@ label.margin-toggle:not(.sidenote-number) { display: none; }
   .lemma,
   .corollary,
   .algorithm,
-  .definition {
+  .def {
     text-align: left;
   }
 }
@@ -280,7 +279,7 @@ label.margin-toggle:not(.sidenote-number) { display: none; }
   .lemma,
   .corollary,
   .algorithm,
-  .definition {
+  .def {
     padding-right: 5rem;
     padding-left: 1.25rem;
   }
@@ -290,26 +289,32 @@ label.margin-toggle:not(.sidenote-number) { display: none; }
 .lemma:before,
 .corollary:before,
 .algorithm:before,
-.definition:before  {
+.def:before  {
   display: inline;
   font-weight: bold;
   font-style: normal;
 }
 
+.theorem {counter-increment: theorem;}
+.lemma {counter-increment: lemma;}
+.corollary {counter-increment: corollary;}
+.algorithm {counter-increment: algorithm;}
+.def {counter-increment: def;}
+
 .theorem:before {
   content: "Theorem " counter(theorem) ".";
 }
 .lemma:before {
-  content: "Lemma " counter(theorem) ".";
+  content: "Lemma " counter(lemma) ".";
 }
 .corollary:before {
-  content: "Corollary " counter(theorem) ".";
+  content: "Corollary " counter(corollary) ".";
 }
 .algorithm:before {
-  content: "Algorithm " counter(theorem) ".";
+  content: "Algorithm " counter(algorithm) ".";
 }
-.definition:before  {
-  content: "Definition " counter(theorem) ".";
+.def:before  {
+  content: "Definition " counter(definition) ".";
 }
 
 .proof:before {
