@@ -67,7 +67,6 @@ The most prominent features currently supported are server side math rendering t
 - [x] Remove left sidebar
 - [ ] Theorem pandoc compatibility: possibly use pandocs new content-blocks `::: theorem` https://github.com/vsch/flexmark-java/issues/327
 - [ ] Reference Theorems with crossref.
-- [ ] Fix unicode use in Latex (e.g. "Hölders").
 
 # Guide to Self
 

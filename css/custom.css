@@ -11,6 +11,7 @@
   .references:before,
 
   .theorem,
+  .example,
   .lemma,
   .corollary,
   .algorithm,
@@ -20,6 +21,7 @@
   }
 
   .theorem p,
+  .example p,
   .lemma p,
   .corollary p,
   .algorithm p,
@@ -193,6 +195,7 @@ body {
     sidenote-counter
     lemma
     theorem
+    example
     corollary
     definition;
 }
@@ -267,15 +270,18 @@ label.margin-toggle:not(.sidenote-number) { display: none; }
 
 /* Sidenote hack: If inside a theorem block we need to take the margin into account */
 .theorem .sidenote,
+.example .sidenote,
 .lemma .sidenote,
 .corollary .sidenote,
 .algorithm .sidenote,
 .def .sidenote {
-  width: 58%;
-  left: 41%;
+  width: 65%;
+  left: 37%;
+  margin-right: -65%;
 }
 
 .theorem,
+.example,
 .lemma,
 .corollary,
 .algorithm,
@@ -290,6 +296,7 @@ label.margin-toggle:not(.sidenote-number) { display: none; }
 }
 /* Messes up sidenote:
 .theorem p:first-child,
+.example p:first-child,
 .lemma p:first-child,
 .corollary p:first-child,
 .algorithm p:first-child,
@@ -297,6 +304,7 @@ label.margin-toggle:not(.sidenote-number) { display: none; }
   display: inline-block;
 } */
 .theorem *:last-child,
+.example *:last-child,
 .lemma *:last-child,
 .corollary *:last-child,
 .algorithm *:last-child,
@@ -305,6 +313,7 @@ label.margin-toggle:not(.sidenote-number) { display: none; }
 }
 @media (max-width: 30em) {
   .theorem,
+  .example,
   .lemma,
   .corollary,
   .algorithm,
@@ -314,6 +323,7 @@ label.margin-toggle:not(.sidenote-number) { display: none; }
 }
 @media (min-width: 30em) {
   .theorem,
+  .example,
   .lemma,
   .corollary,
   .algorithm,
@@ -324,6 +334,7 @@ label.margin-toggle:not(.sidenote-number) { display: none; }
 }
 
 .theorem p:first-child:before,
+.example p:first-child:before,
 .lemma p:first-child:before,
 .corollary p:first-child:before,
 .algorithm p:first-child:before,
@@ -334,6 +345,7 @@ label.margin-toggle:not(.sidenote-number) { display: none; }
 }
 
 .theorem {counter-increment: theorem;}
+.example {counter-increment: example;}
 .lemma {counter-increment: lemma;}
 .corollary {counter-increment: corollary;}
 .algorithm {counter-increment: algorithm;}
@@ -341,6 +353,9 @@ label.margin-toggle:not(.sidenote-number) { display: none; }
 
 .theorem p:first-child:before {
   content: "Theorem " counter(theorem) ". ";
+}
+.example p:first-child:before {
+  content: "Example " counter(theorem) ". ";
 }
 .lemma p:first-child:before {
   content: "Lemma " counter(lemma) ". ";
