@@ -61,9 +61,11 @@ html {
   box-shadow: 0 0 0 10px #c6c6c6;
 }
 
-/* background-color: #251346;
-border-bottom: 10px solid #472684;
-box-shadow: 0 0 0 10px #875cd5; */
+.sidebar.purple {
+  background-color: #251346;
+  border-bottom: 10px solid #472684;
+  box-shadow: 0 0 0 10px #875cd5;
+}
 
 /* Sidebar links */
 .sidebar a {

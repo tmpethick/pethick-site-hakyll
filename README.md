@@ -63,9 +63,11 @@ The most prominent features currently supported are server side math rendering t
 - [ ] Feed.
 - [ ] Tags.
 - [x] Live reload (see https://github.com/jaspervdj/hakyll/issues/140)
-- [ ] Fix styling for sidenotes
-- [ ] Remove left sidebar
-- [ ] Theorem style: possibly use pandocs new content-blocks `::: theorem` https://github.com/vsch/flexmark-java/issues/327
+- [x] Fix styling for sidenotes
+- [x] Remove left sidebar
+- [ ] Theorem pandoc compatibility: possibly use pandocs new content-blocks `::: theorem` https://github.com/vsch/flexmark-java/issues/327
+- [ ] Reference Theorems with crossref.
+- [ ] Fix unicode use in Latex (e.g. "Hölders").
 
 # Guide to Self
 
