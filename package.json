@@ -1,0 +1,7 @@
+{
+  "name": "blog",
+  "version": "1.0.0",
+  "dependencies": {
+    "livereload": "^0.8.2"
+  }
+}

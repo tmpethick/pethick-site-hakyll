@@ -55,6 +55,7 @@ The most prominent features currently supported are server side math rendering t
 - [ ] Make subfigure output semantic (use `figure` and `figcaption`).
 - [ ] Feed.
 - [ ] Tags.
+- [x] Live reload (see https://github.com/jaspervdj/hakyll/issues/140)
 
 # Guide to Self
 
@@ -118,6 +119,10 @@ mergeSort xs  = let (as,bs) = split xs
 ~~~~~~~~~~
 
 ## Footnotes
+
+The footnote syntax can be found here: 
+
+https://rephrase.net/box/word/footnotes/syntax/
 
 <b id="link-citation-footnote">1)</b>
 Possible using `-F pandoc-citeproc --metadata link-citations=true`. We might have to do it in haskell by setting `WriterOptions` [↩](#a1):
