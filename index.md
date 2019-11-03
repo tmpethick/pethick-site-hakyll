@@ -6,12 +6,17 @@ title: Content
 
 - [Follow the Regularized Leader](/posts/2019-10-29-FTRL/)
 
+## Talks
+
+- [Stuart Russell](/posts/2019-11-03-russell-talk/)
+
 ## Algorithms for Massive Datasets
 
 - [The I/O model](/posts/2018-05-22-io-model/)
 
 You can also find all the posts in chronological order in the [archive](/archive/).
 
+<hr>
 
 ## Open Source
 

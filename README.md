@@ -71,10 +71,6 @@ The most prominent features currently supported are server side math rendering t
 - [ ] Theorem pandoc compatibility: possibly use pandocs new content-blocks `::: theorem` https://github.com/vsch/flexmark-java/issues/327
 - [ ] Reference Theorems with crossref.
 
-- Fix reference CLS
-- fix link (link-citations for pandoc-citation)
-- Write about talk
-- add Pauls stuff
 
 # Guide to Self
 
