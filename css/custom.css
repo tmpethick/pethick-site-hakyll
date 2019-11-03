@@ -228,7 +228,8 @@ body {
 .sidenote-number:after { content: counter(sidenote-counter);
   font-size: 0.8rem;
   top: -0.3rem;
-  left: 0rem;}
+  left: 0rem;
+}
 
 .sidenote:before { 
   content: counter(sidenote-counter) " ";
@@ -264,6 +265,21 @@ label.margin-toggle:not(.sidenote-number) { display: none; }
     position: initial; 
   }
   label { cursor: pointer; }
+
+  .sidenote, .marginnote {
+    font-size: 1rem; 
+  }
+
+  /* Hack to fix added <br> */
+  .sidenote br:last-child {
+    display: none;
+  }
+  
+  .sidenote-number:after { 
+    color: #268bd2;
+    text-decoration: none;
+  }
+
 }
 
 /*************************************************/

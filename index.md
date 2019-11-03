@@ -8,7 +8,7 @@ title: Content
 
 ## Talks
 
-- [Stuart Russell](/posts/2019-11-03-russell-talk/)
+- [Stuart Russell on Provably Beneficial Artificial Intelligence](/posts/2019-11-03-russell-talk/)
 
 ## Algorithms for Massive Datasets
 

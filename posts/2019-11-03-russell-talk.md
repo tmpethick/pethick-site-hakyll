@@ -5,7 +5,7 @@ preamble: \usepackage{cleveref}\usepackage{amsmath}\usepackage{braket}\usepackag
 
 Stuart Russell came to EPFL last Friday to talk about his new book on [Human Compatible: Artificial Intelligence and the Problem of Control][book].
 Broadly speaking there were two main messages: first we should avoid specifying fixed objectives and instead learn them in a dynamic environment where the agent adhere to the human.
-His second main talking point was on the problem of how we aggregate utility -- a similar problem to what the Extreme Altruism movement face.
+His second main talking point was on the problem of how we aggregate utility -- a similar problem to what the Effective Altruism movement face.
 I will expand on these in a bit but let's first look at how he opened. 
 
 #### A confused kicker 
@@ -130,7 +130,7 @@ However, sadistic people are not so uncommon when we realise that Pride and Riva
 #### Optimizing jointly
 As a final example on problems with optimizing a global utility he gave a comical image: picture a kitchen robot denying its owner food because its decided that there are more urgent matters in some third-world country.
 This capture more of an engineering challenge and to me seem very flawed.
-It is misleading since the optimization process would be jointly but the _action space_ consider would be for each robot individually.
+It is misleading since the optimization process would be jointly but the _action space_ considered would be for each robot individually.
 So it does not seem like a real issues: neither theoretical nor practically.
 
 # Final remarks
@@ -138,7 +138,8 @@ So it does not seem like a real issues: neither theoretical nor practically.
 Being careful with what we are optimizing for definitely seems crucial.
 This is both in terms of learning or adjusting to a changing objective and understanding what we implicitly assume when aggregating the utility.
 Further, I don't see why these questions are only relevant within AI safety.
-Extreme Altruism is about optimizing the optimization process and here a proper definition of utility is even more important.
+Effective Altruism is about optimizing the optimization process and here a proper definition of utility is even more important.
+Even more broadly these concerns apply just as much to any far-reaching decision making body -- be it a state, a multinational company or the scientific enterprise.
 
 
 [book]: https://www.amazon.com/Human-Compatible-Artificial-Intelligence-Problem/dp/0525558616
