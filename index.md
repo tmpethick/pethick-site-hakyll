@@ -4,7 +4,7 @@ title: Content
 
 ## Online Convex Optimization
 
-- [Follow the Regularized Leader](/posts/2019-10-29-FTRL/)
+- [Follow the Regularized Leader](/posts/2019-11-02-FTRL/)
 
 ## Talks
 
