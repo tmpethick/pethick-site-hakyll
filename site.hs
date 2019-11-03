@@ -90,6 +90,9 @@ writerSettings :: WriterOptions
 writerSettings = def { writerHighlight = True
                      , writerSectionDivs = True
                      , writerHtml5 = True 
+                    --  , writerVariables = [
+                    --     ("link-citations", "true")
+                    --  ]
                      }
 
 defaultPreamble = "\\usepackage{amsmath}\\usepackage{amssymb}"
@@ -171,7 +174,7 @@ bibtexCompiler renderFormulae = do
     
     let readPandoc' i = do exists <- unsafeCompiler $ doesFileExist fp
                            if exists then do
-                               csl <- load $ fromFilePath "csl/elsevier-with-titles-alphabetical.csl"
+                               csl <- load $ fromFilePath "csl/ieee-with-url.csl"
                                bib <- load (fromFilePath fp)
                                readPandocBiblio readerSettings csl bib i
                            else

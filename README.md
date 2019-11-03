@@ -37,6 +37,9 @@ The most prominent features currently supported are server side math rendering t
 - [x] Render math to image to support arbitrary latex packages (using [`latex-formulae`](https://github.com/liamoc/latex-formulae)).
   - [ ] Specify packages in `preamble` using `[String]` instead of `String` for readability.
 - [x] Bibliography support with a `.bib` file for each post (using Hakyll's `readPandocBiblio`)
+  - https://github.com/mcmtroffaes/homepage/blob/master/posts/2015-01-09-hakyll-and-bibtex.markdown
+  - https://github.com/citation-style-language/styles
+  - https://www.zotero.org/styles
 - [x] Reference section, figure and equations *with links* (using [`pandoc-crossref`](https://lierdakil.github.io/pandoc-crossref/)).
 - [x] Let top post heading be `h2` (using Haskell Tag transformation to avoid messing up [`pandoc-crossref`]s numbering).
 - [x] Number sections (using [`pandoc-crossref`]).
@@ -67,6 +70,11 @@ The most prominent features currently supported are server side math rendering t
 - [x] Remove left sidebar
 - [ ] Theorem pandoc compatibility: possibly use pandocs new content-blocks `::: theorem` https://github.com/vsch/flexmark-java/issues/327
 - [ ] Reference Theorems with crossref.
+
+- Fix reference CLS
+- fix link (link-citations for pandoc-citation)
+- Write about talk
+- add Pauls stuff
 
 # Guide to Self
 
