@@ -9,7 +9,7 @@
   <!-- Enable responsiveness on mobile devices-->
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
 
-  <title>Provably Beneficial Artificial Intelligence</title>
+  <title>Provably Beneficial Artificial Intelligence by Stuart Russell</title>
 
   <!-- CSS -->
 
@@ -64,12 +64,12 @@
 
     <div class="content container">
       <div class="post hyphenate">
-    <h1 class="post-title">Provably Beneficial Artificial Intelligence</h1>
+    <h1 class="post-title">Provably Beneficial Artificial Intelligence by Stuart Russell</h1>
     <span class="post-date">Posted on November  3, 2019</span>
     <p>Stuart Russell came to EPFL last Friday to talk about his new book on <a href="https://www.amazon.com/Human-Compatible-Artificial-Intelligence-Problem/dp/0525558616">Human Compatible: Artificial Intelligence and the Problem of Control</a>. Broadly speaking there were two main messages: first we should avoid specifying fixed objectives and instead learn them in a dynamic environment where the agent adhere to the human. His second main talking point was on the problem of how we aggregate utility — a similar problem to what the Effective Altruism movement face. I will expand on these in a bit but let’s first look at how he opened.</p>
 <section id="sec:a-confused-kicker" class="level4">
 <h5>A confused kicker</h5>
-<p>He had a catchy opening illustrating the lack of robustness in modern RL methods. It showed to adversary player’s: one a a goal keeper and the other the kicker. He showed that a seemingly useless (but hilarious) strategy of the goal keeper could completely confuse the kickers ability to score. What we end up looking at is a goal keeper who simply lies down and wiggle’s it’s leg. This is apparently sufficient to render the kicker utterly incapable — the agent will indecisively dance around the ball. With a well-behaved opponent the kicker motorics and strategy is very human, but this lack of robustness in an averserial setting shows that something very different is going on under the hood. As Stuart Russell puts it: the two agents are intertwine in some intricate dance of tango. Now, of course in this zero-sum game dependency is inherent. The problem is that most of the training signal of the kicker seems to depend on the actions of the opponent instead of treating it as noise. What I could imagine is happening is the following: by actively not having the goal keeper search for an optimal strategy we make it harder to converged to a stable strategy.</p>
+<p>He had a catchy opening illustrating the lack of robustness in modern RL methods. It showed two adversary player’s: one a goal keeper and the other the kicker. He showed that a seemingly useless (but hilarious) strategy of the goal keeper could completely confuse the kickers ability to score. What we end up looking at is a goal keeper who simply lies down and wiggle’s it’s leg. This is apparently sufficient to render the kicker utterly incapable — the agent will indecisively dance around the ball. With a well-behaved opponent the kicker motorics and strategy is very human, but this lack of robustness in an adversarial setting shows that something very different is going on under the hood. As Stuart Russell puts it: the two agents are intertwine in some intricate dance of tango. Now, of course in this zero-sum game dependency is inherent. The problem is that most of the training signal of the kicker seems to depend on the actions of the opponent instead of treating it as noise. What I could imagine is happening is the following: by actively not having the goal keeper search for an optimal strategy we make it harder to converged to a stable strategy.</p>
 </section>
 <section id="sec:sample-efficiency" class="level4">
 <h5>Sample efficiency</h5>
