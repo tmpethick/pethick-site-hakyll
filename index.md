@@ -8,7 +8,8 @@ title: Content
 
 ## Talks
 
-- [Stuart Russell on Provably Beneficial Artificial Intelligence](/posts/2019-11-03-russell-talk/)
+- [Provably Beneficial Artificial Intelligence by Stuart Russell](/posts/2019-11-03-russell-talk/)
+- [From Causal Inference to Autoencoders and Gene Regulation by Caroline Uhler](/posts/2019-11-16-caroline-uhler/)
 
 ## Algorithms for Massive Datasets
 

@@ -1,5 +1,5 @@
 -----
-title: Provably Beneficial Artificial Intelligence
+title: Provably Beneficial Artificial Intelligence by Stuart Russell
 preamble: \usepackage{cleveref}\usepackage{amsmath}\usepackage{braket}\usepackage{amssymb}\usepackage{amsthm}\usepackage[utf8]{inputenc}
 -----
 
@@ -10,11 +10,11 @@ I will expand on these in a bit but let's first look at how he opened.
 
 #### A confused kicker 
 He had a catchy opening illustrating the lack of robustness in modern RL methods.
-It showed to adversary player's: one a a goal keeper and the other the kicker.
+It showed two adversary player's: one a goal keeper and the other the kicker.
 He showed that a seemingly useless (but hilarious) strategy of the goal keeper could completely confuse the kickers ability to score.
 What we end up looking at is a goal keeper who simply lies down and wiggle's it's leg.
 This is apparently sufficient to render the kicker utterly incapable -- the agent will indecisively dance around the ball.
-With a well-behaved opponent the kicker motorics and strategy is very human, but this lack of robustness in an averserial setting shows that something very different is going on under the hood.
+With a well-behaved opponent the kicker motorics and strategy is very human, but this lack of robustness in an adversarial setting shows that something very different is going on under the hood.
 As Stuart Russell puts it: the two agents are intertwine in some intricate dance of tango.
 Now, of course in this zero-sum game dependency is inherent.
 The problem is that most of the training signal of the kicker seems to depend on the actions of the opponent instead of treating it as noise.

@@ -2,7 +2,11 @@
 /* Layout */
 
 @media (min-width: 48em) {
-  .content p,
+  .content > p,
+  .post > p,
+  section > p,
+  .references p,
+  .proof p,
   .content ol,
   .content ul,
   .content hr,
@@ -45,7 +49,9 @@
   .level4 {
     width: 55%;
   }
-  .level4 p {
+  .level4 p,
+  .level4 ul,
+  .level4 ol {
     width: auto;
   }
 }
@@ -205,7 +211,8 @@ body {
 /* sidenotes */
 
 
-.sidenote, .marginnote { float: right;
+.sidenote, .marginnote { 
+  float: right;
   clear: right;
   margin-right: -60%;
   width: 50%;
@@ -239,7 +246,8 @@ body {
   margin-right: 0.3rem; 
 }
 
-blockquote .sidenote, blockquote .marginnote { margin-right: -82%;
+blockquote .sidenote, 
+blockquote .marginnote { margin-right: -82%;
                         min-width: 59%;
                         text-align: left; }
 
@@ -251,18 +259,20 @@ label.margin-toggle:not(.sidenote-number) { display: none; }
 
 @media (max-width: 760px) {
   label.margin-toggle:not(.sidenote-number) { display: inline; }
-  .sidenote, .marginnote { display: none; }
+  .sidenote { display: none; }
   .margin-toggle:checked + .sidenote,
-  .margin-toggle:checked + .marginnote { 
+  .marginnote { 
     display: block;
-    background: #f2f2f2;
     margin: 0;
     padding: 1rem;
     margin: 1rem 0;
     width: 100%;
+    position: initial; 
+  }
+  .margin-toggle:checked + .sidenote {
+    background: #f2f2f2;
     border-bottom: 1px solid gray;
     border-top: 1px solid gray;
-    position: initial; 
   }
   label { cursor: pointer; }
 
