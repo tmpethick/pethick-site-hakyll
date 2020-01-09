@@ -22,11 +22,14 @@ We will prepare ourselves for a non-convex setting that uses results for OCO.
 #### Problem formulation
 In the expert problem we are to select a weighing of experts which minimize a loss that is simply the sum of losses associated with each expert.
 An example of this setting could be _portfolio selection_ where each stock is an expert and the loss is the negative return.
-Formalized in our OCO framework this corresponds to a decision space being the finite dimensional simplex $\Omega = \nabla_N$ and the loss linear $f_t(p) = \braket{p,\ell_t}$ for which we will further assume boundedness $\ell_t \in [0,1]$.
+Formalized in our OCO framework this corresponds to a decision space being the finite dimensional simplex $\Omega = \Delta_N$ and the loss linear $f_t(p) = \braket{p,\ell_t}$ for which we will further assume boundedness $\ell_t \in [0,1]$.
+
+1. Player picks $p_t \in \Delta_N$.
+2. Player observed $\ell_t$ and suffers $\braket{p_t, \ell_t}$.
 
 We are thus interested in minimizes the following loss,
 
-$$\mathcal{R}_{T}=\sum_{t=1}^{T}\left\langle p_{t}, \ell_{t}\right\rangle-\min _{p \in \Delta(N)} \sum_{t=1}^{T}\left\langle p, \ell_{t}\right\rangle=\sum_{t=1}^{T}\left\langle p_{t}, \ell_{t}\right\rangle-\sum_{t=1}^{T} \ell_{t}\left(i^{\star}\right)$$
+$$\mathcal{R}_{T}=\sum_{t=1}^{T}\left\langle p_{t}, \ell_{t}\right\rangle-\min _{p \in \Delta_N} \sum_{t=1}^{T}\left\langle p, \ell_{t}\right\rangle=\sum_{t=1}^{T}\left\langle p_{t}, \ell_{t}\right\rangle-\sum_{t=1}^{T} \ell_{t}\left(i^{\star}\right)$$
 
 with $i^{\star} \in \operatorname{argmin}_{i} \sum_{t=1}^{T} \ell_{t}(i)$.
 
@@ -258,15 +261,15 @@ https://haipeng-luo.net/courses/CSCI699/lecture2.pdf
 
 In multi-armed bandit we consider a slight modification to the setting for which we applied Hedge.
 The difference lies in considering _limited feedback_.
-That is, we only observe the loss $f_t(a_t)$ which we incur instead of the entire function $f_t(\cdot)$.
+That is, we only observe the loss $\ell_t(i_t)$ which we incur instead of the entire function $\ell_t$.
 
 <div class="block--def">(Bandit setting)
 The player is given a fixed decision set $\mathcal K$.
 At each round $t=1,...,T$:
 
-1. Player pick $\mathbf a_t \in \mathcal K$.
+1. Player pick $i_t \in \mathcal K$.
 2. The environment picks a convex loss vector $\ell_t$.
-3. The player then observes and suffers loss $\ell_t(\mathbf a_t)$.
+3. The player then observes and suffers loss $\ell_t(i_t)$.
 </div>
 
 #### Exploration/Exploitation
@@ -281,16 +284,16 @@ We cannot naively apply Hedge as it would require full information of the previo
 What we _can_ do is construct an unbiased estimator of the gradient on which we then apply Hedge.
 
 <div class="block--lemma">(Importance-Weighted Estimator)
-Say you sample $A_t \sim p_t$ and construct
+Say you sample $I_t \sim p_t$ and construct
 
-$$\tilde{\ell}_{t}(\mathbf a)=\begin{cases} 
-      \ell_{t}(\mathbf a) / p_t(\mathbf a) & \mathbf a = A_t \\
+$$\tilde{\ell}_{t}(i)=\begin{cases} 
+      \ell_{t}(i) / p_t(i) & i = I_t \\
       0 & \mathrm{otherwise.}
    \end{cases}$$
 
 then this estimator is unbiased
 
-$$\mathbb E_{A_t \sim p_t}\left[\tilde{\ell}_{t}(\mathbf a)\right]=\left(1-p_{t}(\mathbf a)\right) \cdot 0+p_{t}(\mathbf a) \cdot \frac{\ell_{t}(\mathbf a)}{p_{t}(\mathbf a)}=\ell_{t}(\mathbf a).$$
+$$\mathbb E_{I_t \sim p_t}\left[\tilde{\ell}_{t}(i)\right]=\left(1-p_{t}(i)\right) \cdot 0+p_{t}(i) \cdot \frac{\ell_{t}(i)}{p_{t}(i)}=\ell_{t}(i).$$
 </div>
 
 Combining importance-weighting with Hedge leads to what has been called Exp3.
@@ -301,9 +304,9 @@ $w_0(i) = 0\ \forall i$<br>
 Then for $t=1..T$
 $$\begin{aligned}
 &p_t(i) = \exp{\left(w_{t-1}(i)\right)} / \sum_{j=1}^N \exp{\left(w_{t-1}(j)\right)} && \text{(Turn into prob. dist.)}\\
-&A_t \sim p_t && \text{(sample arm)}\\
-&\tilde{\ell}_{t}(\mathbf a)=\begin{cases} 
-      \ell_{t}(\mathbf a) / p_t(\mathbf a) & \mathbf a = A_t \\
+&I_t \sim p_t && \text{(sample arm)}\\
+&\tilde{\ell}_{t}(i)=\begin{cases} 
+      \ell_{t}(i) / p_t(i) & i = I_t \\
       0 & \mathrm{otherwise}
    \end{cases} && \text{(Construct estimator)}\\
 &w_t(i) =w_{t-1}(i) -\eta \tilde{\ell}_{t-1}(i). && \text{(Compute weights)}
@@ -326,13 +329,13 @@ $$\begin{aligned}
 \mathbb E[\mathcal R_T]
 &= \mathbb E[\tilde{\mathcal R}_T] \\
 &\leq \frac{\ln K}{\eta}+\eta \sum_{t=1}^{T}\mathbb E\left[\left\|\tilde{\ell}_{t}\right\|_{\infty}^{2}\right] \\
-&\leq \frac{\ln K}{\eta}+\eta \sum_{t=1}^{T}\sum_{\mathbf a\in \mathcal K}\frac{\ell_{t}(\mathbf a)^2}{p_t(\mathbf a)}.
+&\leq \frac{\ln K}{\eta}+\eta \sum_{t=1}^{T}\sum_{i\in \mathcal K}\frac{\ell_{t}(i)^2}{p_t(i)}.
 \end{aligned}$$
 
-Notice how it will blow up if $p_t(\mathbf a)$ is very small for _some_ $\mathbf a$ [^uniform].
+Notice how it will blow up if $p_t(i)$ is very small for _some_ $i$ [^uniform].
 
 [^uniform]: The initial analysis bounded the regret by explicitly exploring uniformly based on a coin flip.
-  This way $p_t(\mathbf a)$ was ensured to be sufficiently big for all $\mathbf a$.
+  This way $p_t(i)$ was ensured to be sufficiently big for all $i$.
 
 We can tighten the analysis, however, using some tricks almost exclusively reserved for the particular case of Exp3.
 
@@ -378,7 +381,7 @@ This presentation primarily pulls from the following sources:
 - The Bandit part is loosly based on Haipeng's [lecture note 12](https://haipeng-luo.net/courses/CSCI699/lecture12.pdf) and [lecture note 8](https://haipeng-luo.net/courses/CSCI699_2019/lecture8.pdf) but fundamentally altered to prepare us for _Gaussian Processes with Multiplicative Weights_ which we will cover next.
 
 I've skipped through some standard results in the Bandit literature: Explore-then-exploit and Upper Confidence Bound (UCB) to not get us too afar astray from the analysis we have seen so far in OCO.
-A good starting point for the curious reader is either [Haipeng's notes](https://haipeng-luo.net/courses/CSCI699/) or [one](https://arxiv.org/pdf/1904.07272.pdf) of the  [many](https://tor-lattimore.com/downloads/book/book.pdf) books on Bandits (the literature is vast!)).
+A good starting point for the curious reader is either [Haipeng's notes](https://haipeng-luo.net/courses/CSCI699/) or [one](https://arxiv.org/pdf/1904.07272.pdf) of the  [many](https://tor-lattimore.com/downloads/book/book.pdf) books on Bandits (the literature is vast!).
 
 <!-- # Terminology
 
