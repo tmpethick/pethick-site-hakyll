@@ -10,48 +10,28 @@
   .content ol,
   .content ul,
   .content hr,
-  
   figure,
-
   .references:before,
-
-  .theorem,
-  .example,
-  .lemma,
-  .corollary,
-  .algorithm,
-  .def  
-  {
-    width: 55%;
-  }
-
-  .theorem p,
-  .example p,
-  .lemma p,
-  .corollary p,
-  .algorithm p,
-  .def p {
-    width: auto;
-  }
-  .proof:after {
+  .proof:after,
+  .level4,
+  div[class^="block--"] {
     width: 55%;
   }
 
   .definition {
     width: 70%;
   }
+
   .definition ol,
   .definition ul,
-  .definition p {
-    width: auto;
-  }
-
-  .level4 {
-    width: 55%;
-  }
+  .definition p,
   .level4 p,
+  .level4 div[class^="block--"],
   .level4 ul,
-  .level4 ol {
+  .level4 ol,
+  div[class^="block--"] p,
+  div[class^="block--"] ul,
+  div[class^="block--"] ol {
     width: auto;
   }
 }
@@ -202,6 +182,7 @@ body {
     sidenote-counter
     lemma
     theorem
+    algorithm
     example
     corollary
     definition;
@@ -296,23 +277,19 @@ label.margin-toggle:not(.sidenote-number) { display: none; }
 /* Theorem/Lemma/etc... */
 
 /* Sidenote hack: If inside a theorem block we need to take the margin into account */
-.theorem .sidenote,
-.example .sidenote,
-.lemma .sidenote,
-.corollary .sidenote,
-.algorithm .sidenote,
-.def .sidenote {
+/* div[class^="block--"] .sidenote  {
   width: 65%;
   left: 37%;
   margin-right: -65%;
-}
+} */
+div[class^="block--"] .sidenote, 
+div[class^="block--"] .marginnote { margin-right: -84%;
+                        width: 60%;
+                        left: 0;
+                        text-align: left; 
+                        font-style: normal;}
 
-.theorem,
-.example,
-.lemma,
-.corollary,
-.algorithm,
-.def {
+div[class^="block--"] {
   padding: .5rem 1rem;
   margin: .8rem 0;
   display: block;
@@ -322,78 +299,58 @@ label.margin-toggle:not(.sidenote-number) { display: none; }
   border-width: 1px 1px 1px .30rem;
 }
 /* Messes up sidenote:
-.theorem p:first-child,
-.example p:first-child,
-.lemma p:first-child,
-.corollary p:first-child,
-.algorithm p:first-child,
-.def p:first-child {
+.block--theorem p:first-child,
+.block--example p:first-child,
+.block--lemma p:first-child,
+.block--corollary p:first-child,
+.block--algorithm p:first-child,
+.block--def p:first-child {
   display: inline-block;
 } */
-.theorem *:last-child,
-.example *:last-child,
-.lemma *:last-child,
-.corollary *:last-child,
-.algorithm *:last-child,
-.def *:last-child {
+div[class^="block--"] *:last-child {
   margin-bottom: 0;
 }
 @media (max-width: 30em) {
-  .theorem,
-  .example,
-  .lemma,
-  .corollary,
-  .algorithm,
-  .def {
+  div[class^="block--"] {
     text-align: left;
   }
 }
 @media (min-width: 30em) {
-  .theorem,
-  .example,
-  .lemma,
-  .corollary,
-  .algorithm,
-  .def {
+  div[class^="block--"] {
     padding-right: 10%;
     padding-left: 1.25rem;
   }
 }
 
-.theorem p:first-child:before,
-.example p:first-child:before,
-.lemma p:first-child:before,
-.corollary p:first-child:before,
-.algorithm p:first-child:before,
-.def p:first-child:before  {
+div[class^="block--"] p:first-child:before {
   display: inline;
   font-weight: bold;
   font-style: normal;
 }
 
-.theorem {counter-increment: theorem;}
-.example {counter-increment: example;}
-.lemma {counter-increment: lemma;}
-.corollary {counter-increment: corollary;}
-.algorithm {counter-increment: algorithm;}
-.def {counter-increment: definition;}
+.block--theorem {counter-increment: theorem;}
+.block--example {counter-increment: example;}
+.block--lemma {counter-increment: lemma;}
+.block--corollary {counter-increment: corollary;}
+.block--algorithm {counter-increment: algorithm;}
+.block--def {counter-increment: definition;}
 
-.theorem p:first-child:before {
+.block--theorem p:first-child:before {
   content: "Theorem " counter(theorem) ". ";
 }
-.example p:first-child:before {
+.block--example p:first-child:before {
   content: "Example " counter(theorem) ". ";
 }
-.lemma p:first-child:before {
+.block--lemma p:first-child:before {
   content: "Lemma " counter(lemma) ". ";
 }
-.corollary p:first-child:before {
+.block--corollary p:first-child:before {
   content: "Corollary " counter(corollary) ". ";
 }
-.algorithm p:first-child:before {
+.block--algorithm p:first-child:before {
   content: "Algorithm " counter(algorithm) ". ";
 }
-.def p:first-child:before  {
+.block--def p:first-child:before  {
   content: "Definition " counter(definition) ". ";
 }
 
@@ -408,4 +365,44 @@ label.margin-toggle:not(.sidenote-number) { display: none; }
   font-style: italic;
   font-size: 1.4rem;
   text-align: right;
+  width: 100%;
+}
+
+@media print {
+  html, body {
+    margin: 0;
+    padding: 0;
+  }
+  .container {
+    margin-left: 0;
+  }
+
+  .content > p,
+  .post > p,
+  section > p,
+  .references p,
+  .proof p,
+  .content ol,
+  .content ul,
+  .content hr,
+  figure,
+  .references:before,
+  .proof:after,
+  .level4,
+  div[class^="block--"] {
+    width: 75%;
+  }
+
+  .definition ol,
+  .definition ul,
+  .definition p,
+  .level4 p,
+  .level4 div[class^="block--"],
+  .level4 ul,
+  .level4 ol,
+  div[class^="block--"] p,
+  div[class^="block--"] ul,
+  div[class^="block--"] ol {
+    width: auto;
+  }
 }

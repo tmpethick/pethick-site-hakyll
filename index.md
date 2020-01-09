@@ -5,6 +5,8 @@ title: Content
 ## Online Convex Optimization
 
 - [Follow the Regularized Leader](/posts/2019-11-02-FTRL/)
+- [Hedge and Bandits](/posts/2020-01-06-hedge-and-bandit.md)
+- [Gaussian Processes and Hedge for infinite armed bandits](/posts/2020-01-07-gp-mw.md)
 
 ## Talks
 
