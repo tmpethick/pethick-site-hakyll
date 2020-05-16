@@ -133,6 +133,10 @@ main = do
             route   idRoute
             compile copyFileCompiler
 
+        match "font/**/*" $ do
+            route   idRoute
+            compile copyFileCompiler
+    
         match "bib/*.bib" $ compile biblioCompiler
         match "csl/*.csl" $ compile cslCompiler
 

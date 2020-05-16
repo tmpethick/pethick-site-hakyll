@@ -1,6 +1,14 @@
 /*************************************************/
 /* Layout */
 
+@media (min-width: 1240px) {
+  .container {
+    max-width: 1240px;
+    margin: auto;
+    padding-left: 10%;
+  }
+}
+
 @media (min-width: 48em) {
   .content > p,
   .post > p,
@@ -37,29 +45,130 @@
 }
 
 /*************************************************/
+/* Font imports */
+@font-face {
+	font-family: 'Computer Modern Sans';
+	src: url('../font/cm/Sans/cmunss.eot');
+	src: url('../font/cm/Sans/cmunss.eot?#iefix') format('embedded-opentype'),
+		 url('../font/cm/Sans/cmunss.woff') format('woff'),
+		 url('../font/cm/Sans/cmunss.ttf') format('truetype'),
+		 url('../font/cm/Sans/cmunss.svg#cmunss') format('svg');
+	font-weight: normal;
+	font-style: normal;
+}
+
+
+@font-face {
+	font-family: 'Computer Modern Sans';
+	src: url('../font/cm/Sans/cmunsx.eot');
+	src: url('../font/cm/Sans/cmunsx.eot?#iefix') format('embedded-opentype'),
+		 url('../font/cm/Sans/cmunsx.woff') format('woff'),
+		 url('../font/cm/Sans/cmunsx.ttf') format('truetype'),
+		 url('../font/cm/Sans/cmunsx.svg#cmunsx') format('svg');
+	font-weight: bold;
+	font-style: normal;
+}
+
+
+@font-face {
+	font-family: 'Computer Modern Sans';
+	src: url('../font/cm/Sans/cmunsi.eot');
+	src: url('../font/cm/Sans/cmunsi.eot?#iefix') format('embedded-opentype'),
+		 url('../font/cm/Sans/cmunsi.woff') format('woff'),
+		 url('../font/cm/Sans/cmunsi.ttf') format('truetype'),
+		 url('../font/cm/Sans/cmunsi.svg#cmunsi') format('svg');
+	font-weight: normal;
+	font-style: italic;
+}
+
+
+@font-face {
+	font-family: 'Computer Modern Sans';
+	src: url('../font/cm/Sans/cmunso.eot');
+	src: url('../font/cm/Sans/cmunso.eot?#iefix') format('embedded-opentype'),
+		 url('../font/cm/Sans/cmunso.woff') format('woff'),
+		 url('../font/cm/Sans/cmunso.ttf') format('truetype'),
+		 url('../font/cm/Sans/cmunso.svg#cmunso') format('svg');
+	font-weight: bold;
+	font-style: italic;
+}
+
+@font-face {
+	font-family: 'Computer Modern Serif';
+	src: url('../font/cm/Serif/cmunrm.eot');
+	src: url('../font/cm/Serif/cmunrm.eot?#iefix') format('embedded-opentype'),
+		 url('../font/cm/Serif/cmunrm.woff') format('woff'),
+		 url('../font/cm/Serif/cmunrm.ttf') format('truetype'),
+		 url('../font/cm/Serif/cmunrm.svg#cmunrm') format('svg');
+	font-weight: normal;
+	font-style: normal;
+}
+
+
+@font-face {
+	font-family: 'Computer Modern Serif';
+	src: url('../font/cm/Serif/cmunbx.eot');
+	src: url('../font/cm/Serif/cmunbx.eot?#iefix') format('embedded-opentype'),
+		 url('../font/cm/Serif/cmunbx.woff') format('woff'),
+		 url('../font/cm/Serif/cmunbx.ttf') format('truetype'),
+		 url('../font/cm/Serif/cmunbx.svg#cmunbx') format('svg');
+	font-weight: bold;
+	font-style: normal;
+}
+
+
+@font-face {
+	font-family: 'Computer Modern Serif';
+	src: url('../font/cm/Serif/cmunti.eot');
+	src: url('../font/cm/Serif/cmunti.eot?#iefix') format('embedded-opentype'),
+		 url('../font/cm/Serif/cmunti.woff') format('woff'),
+		 url('../font/cm/Serif/cmunti.ttf') format('truetype'),
+		 url('../font/cm/Serif/cmunti.svg#cmunti') format('svg');
+	font-weight: normal;
+	font-style: italic;
+}
+
+
+@font-face {
+	font-family: 'Computer Modern Serif';
+	src: url('../font/cm/Serif/cmunbi.eot');
+	src: url('../font/cm/Serif/cmunbi.eot?#iefix') format('embedded-opentype'),
+		 url('../font/cm/Serif/cmunbi.woff') format('woff'),
+		 url('../font/cm/Serif/cmunbi.ttf') format('truetype'),
+		 url('../font/cm/Serif/cmunbi.svg#cmunbi') format('svg');
+	font-weight: bold;
+	font-style: italic;
+}
+
+
+/*************************************************/
 /* Font definitions */
 
 body {
-  font-family: "Sorts Mill Goudy";
+  font-family: "Computer Modern Serif";
   color: #333;
 }
 
 em {
   font-style: italic;
-  font-family: "Sorts Mill Goudy"
+  font-family: "Computer Modern Serif"
 }
 
 .sidebar {
-  font-family: "Sorts Mill Goudy";
+  font-family: "Computer Modern Sans";
 }
 
 .sidebar-nav {
-  font-family: "Sorts Mill Goudy";
+  font-family: "Computer Modern Sans";
 }
 
 blockquote {
   font-style: italic;
-  font-family: "Sorts Mill Goudy";
+  font-family: "Computer Modern Serif";
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: "Computer Modern Sans";
 }
 
 
@@ -72,6 +181,25 @@ blockquote {
 h1, h2, h3 {
   text-align: left;
 }
+
+h1 {
+  font-size: 2rem;
+
+}
+h2 {
+  margin-top: 1rem;
+  font-size: 1.25rem;
+}
+h3 {
+  margin-top: 1.5rem;
+  font-size: 1.15rem;
+
+}
+h4, h5, h6 {
+  margin-top: 1rem;
+  font-size: 1rem;
+}
+
 
 /*************************************************/
 /* Mimic Latex paragraph headline */
@@ -283,11 +411,10 @@ label.margin-toggle:not(.sidenote-number) { display: none; }
   margin-right: -65%;
 } */
 div[class^="block--"] .sidenote, 
-div[class^="block--"] .marginnote { margin-right: -84%;
-                        width: 60%;
-                        left: 0;
-                        text-align: left; 
-                        font-style: normal;}
+div[class^="block--"] .marginnote { 
+    margin-right: -60%;
+    margin-right: calc(-60% - 1.6rem);
+    font-style: normal;}
 
 div[class^="block--"] {
   padding: .5rem 1rem;
@@ -317,7 +444,7 @@ div[class^="block--"] *:last-child {
 }
 @media (min-width: 30em) {
   div[class^="block--"] {
-    padding-right: 10%;
+    padding-right: 1.25rem;
     padding-left: 1.25rem;
   }
 }
@@ -365,7 +492,6 @@ div[class^="block--"] p:first-child:before {
   font-style: italic;
   font-size: 1.4rem;
   text-align: right;
-  width: 100%;
 }
 
 @media print {

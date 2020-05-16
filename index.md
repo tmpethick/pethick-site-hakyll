@@ -19,6 +19,10 @@ title: Content
 
 You can also find all the posts in chronological order in the [archive](/archive/).
 
+## Tidbits
+
+- [Gradient Boosting](/posts/2020-05-15-gradientboosting/)
+
 <hr>
 
 ## Open Source
