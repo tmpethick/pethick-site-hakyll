@@ -17,11 +17,12 @@ title: Content
 
 - [The I/O model](/posts/2018-05-22-io-model/)
 
-You can also find all the posts in chronological order in the [archive](/archive/).
-
 ## Tidbits
 
 - [Gradient Boosting](/posts/2020-05-15-gradientboosting/)
+- [Bayesian Logistic Regression](/posts/2020-05-26-bayesian-logistic-regression/)
+
+You can also find all the posts in chronological order in the [archive](/archive/).
 
 <hr>
 
