@@ -1,4 +1,0 @@
-
-
-# Drawing hessian
-# Drawing gradient
