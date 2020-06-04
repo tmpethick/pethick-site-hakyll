@@ -2,6 +2,11 @@
 title: Content
 ---
 
+## Acceleration
+
+- [Various ways of writing Nesterov's acceleration](/posts/2020-06-04-acceleration-perspectives/)
+- [Acceleration convergence using a potential function](/posts/2020-06-04-acceleration-with-potential-function/)
+
 ## Online Convex Optimization
 
 - [Follow the Regularized Leader](/posts/2019-11-02-FTRL/)
