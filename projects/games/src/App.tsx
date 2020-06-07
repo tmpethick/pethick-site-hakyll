@@ -55,17 +55,15 @@ interface AppState {
   config: any
 }
 
-// Update smoothly... 
-// select learning rate
-// select method
 
 class App extends React.Component<{}, AppState> {
+  worker: Worker;
   workerApi: Remote<import('./runner.worker').RunnerWorker>;
 
   constructor(props) {
     super(props);
-    const worker = new RunnerWorker();
-    this.workerApi = wrap<import('./runner.worker').RunnerWorker>(worker);
+    this.worker = new RunnerWorker();
+    this.workerApi = wrap<import('./runner.worker').RunnerWorker>(this.worker);
 
     this.state = { 
       uuid: null,
@@ -90,6 +88,7 @@ class App extends React.Component<{}, AppState> {
   }
 
   updateTrajectory = (x, y, uuid) => {
+    // console.log("app", x, y, uuid);
     // Don't update if uuid has been set and it's not the same.
     if ((this.state.uuid != null) && (this.state.uuid != uuid)) {
       return;
@@ -106,9 +105,15 @@ class App extends React.Component<{}, AppState> {
   }
 
   runFrom = async (x, y) => {
-    // TODO: stop the previous (by setting uuid to 0).
+    console.log('app: ',x,y);
+    // Stop the previous (by setting uuid to null).
     this.setState({uuid: null, data: this._initTrajectory([x], [y])});
+
+    this.worker.terminate();
+    this.worker = new RunnerWorker();
+    this.workerApi = wrap<import('./runner.worker').RunnerWorker>(this.worker);
     await this.workerApi.run(x, y, 0.01, 100, proxy(this.updateTrajectory));
+    console.log(this.state.data.get(1).get('y').toJS());
   }
 
   _initTrajectory = (x, y) => {
@@ -116,7 +121,7 @@ class App extends React.Component<{}, AppState> {
       contourConfig,
       {
         x: x,
-        y: x,
+        y: y,
         type: 'scatter',
         mode: 'lines',
         line: {color: 'red'},
@@ -140,6 +145,7 @@ class App extends React.Component<{}, AppState> {
     return (
       <Plot
         onClick={(e) => {
+          console.log(e);
           const p = e.points[0];
           this.runFrom(p.x, p.y);
         }}
@@ -151,5 +157,9 @@ class App extends React.Component<{}, AppState> {
     );
   }
 }
+
+// click should stop old Runner
+// prevent overflowing boundaries
+// 
 
 export default App;
