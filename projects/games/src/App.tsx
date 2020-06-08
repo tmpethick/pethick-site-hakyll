@@ -6,6 +6,7 @@ import { Remote, proxy, wrap } from 'comlink';
 
 import { unstableGame } from './games';
 import RunnerWorker from './runner.worker';
+import { nextFrame } from '@tensorflow/tfjs';
 
 
 // grid
@@ -71,12 +72,16 @@ class App extends React.Component<{}, AppState> {
       layout: {
         hovermode: true,
         dragmode: "zoom",
-        xaxis: {fixedrange: true, title: {text: "x1"}},
-        yaxis: {fixedrange: true, title: {text: "x2"}},
+        xaxis: {fixedrange: true, title: {text: "x1"}, range: [-2,2]},
+        yaxis: {fixedrange: true, title: {text: "x2"}, range: [-2,2]},
         showlegend: false,
         clickmode: "event",
         width: 720, 
         height: 500, 
+        transition: {
+          duration: 500,
+          easing: 'linear'
+        }
       },
       frames: [], 
       config: {
@@ -87,33 +92,51 @@ class App extends React.Component<{}, AppState> {
     };
   }
 
-  updateTrajectory = (x, y, uuid) => {
+  updateTrajectory = (xs, ys, uuid) => {
     // console.log("app", x, y, uuid);
     // Don't update if uuid has been set and it's not the same.
     if ((this.state.uuid != null) && (this.state.uuid != uuid)) {
-      return;
+      return false;
     }
     // only update if uuid is null or 
     const data = this.state.data;
     const updatedData = data
-      .updateIn([1, 'x'], list => list.push(x))
-      .updateIn([1, 'y'], list => list.push(y));
+      .updateIn([1, 'x'], list => list.concat(xs))
+      .updateIn([1, 'y'], list => list.concat(ys));
     this.setState({
       uuid: uuid,
       data: updatedData
     });
+    return true;
   }
 
   runFrom = async (x, y) => {
     console.log('app: ',x,y);
     // Stop the previous (by setting uuid to null).
     this.setState({uuid: null, data: this._initTrajectory([x], [y])});
+    const updateInterval = 500;
 
     this.worker.terminate();
     this.worker = new RunnerWorker();
     this.workerApi = wrap<import('./runner.worker').RunnerWorker>(this.worker);
-    await this.workerApi.run(x, y, 0.01, 100, proxy(this.updateTrajectory));
-    console.log(this.state.data.get(1).get('y').toJS());
+    this.workerApi.run(x, y, 0.01, 1000, updateInterval, proxy(this.updateTrajectory));
+    
+    // Alt 1
+    // while (true) {
+    //   await nextFrame();
+    //   console.log("!!");
+    //   const { xs, ys, uuid } = await this.workerApi.getState();
+    //   console.log(xs.length);
+    //   const updated = this.updateTrajectory(xs, ys, uuid);
+    //   if (!updated) {
+    //     console.log("Trajectory is no longer updated.");
+    //     break;
+    //   }
+    // }
+  
+    // Alt 2
+    // const {xs, ys, uuid} = await this.workerApi.run(x, y, 0.01, 1000, proxy(this.updateTrajectory));
+    // this.updateTrajectory(xs, ys, uuid);
   }
 
   _initTrajectory = (x, y) => {
@@ -124,7 +147,7 @@ class App extends React.Component<{}, AppState> {
         y: y,
         type: 'scatter',
         mode: 'lines',
-        line: {color: 'red'},
+        line: {color: 'red'}, // simplify: false
         hoverinfo: 'none',
       },
       {
@@ -158,8 +181,12 @@ class App extends React.Component<{}, AppState> {
   }
 }
 
-// click should stop old Runner
+// Make worker return batches of updates at intervals.
+// How do we run interval?
+
+// update with timer
+// click should stop old Runner (click listener should work rather!)
 // prevent overflowing boundaries
-// 
+
 
 export default App;
