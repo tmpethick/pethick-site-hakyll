@@ -81,7 +81,8 @@ class App extends React.Component<{}, AppState> {
         transition: {
           duration: 500,
           easing: 'linear'
-        }
+        },
+        datarevision: 0,
       },
       frames: [], 
       config: {
@@ -100,21 +101,29 @@ class App extends React.Component<{}, AppState> {
     }
     // only update if uuid is null or 
     const data = this.state.data;
-    const updatedData = data
-      .updateIn([1, 'x'], list => list.concat(xs))
-      .updateIn([1, 'y'], list => list.concat(ys));
+    // const updatedData = data
+    //   .updateIn([1, 'x'], list => list.concat(xs))
+    //   .updateIn([1, 'y'], list => list.concat(ys));
+    data[1]['x'].push(xs[xs.length - 1]);
+    data[1]['y'].push(ys[ys.length - 1]);
     this.setState({
       uuid: uuid,
-      data: updatedData
+      layout: {
+        ...this.state.layout,
+        datarevision: this.state.layout.datarevision + 1
+      }
     });
     return true;
   }
 
   runFrom = async (x, y) => {
+    console.log(this.state.data[1].x);
+    console.log(this.state.data[1].y);
+
     console.log('app: ',x,y);
     // Stop the previous (by setting uuid to null).
     this.setState({uuid: null, data: this._initTrajectory([x], [y])});
-    const updateInterval = 500;
+    const updateInterval = 50;
 
     this.worker.terminate();
     this.worker = new RunnerWorker();
@@ -138,9 +147,12 @@ class App extends React.Component<{}, AppState> {
     // const {xs, ys, uuid} = await this.workerApi.run(x, y, 0.01, 1000, proxy(this.updateTrajectory));
     // this.updateTrajectory(xs, ys, uuid);
   }
+  // Draw contour
+  // draw line 
+  // animate
 
   _initTrajectory = (x, y) => {
-    return fromJS([
+    return [
       contourConfig,
       {
         x: x,
@@ -161,7 +173,7 @@ class App extends React.Component<{}, AppState> {
         },
         hoverinfo: 'none',
       }
-    ]);
+    ];
   }
 
   render() {
@@ -172,7 +184,7 @@ class App extends React.Component<{}, AppState> {
           const p = e.points[0];
           this.runFrom(p.x, p.y);
         }}
-        data={this.state.data.toJS()}
+        data={this.state.data}
         layout={this.state.layout}
         frames={this.state.frames}
         config={this.state.config}
