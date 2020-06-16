@@ -1,12 +1,6 @@
 import { expose } from 'comlink';
 import { run as runOptimizer } from './runner';
-
-function uuidv4() {
-  return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
-    var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
-    return v.toString(16);
-  });
-}
+import { uuidv4 } from './uuid';
 
 let currentRunner: RunnerState = null;
 const runners: Record<string, RunnerState> = {};
@@ -18,8 +12,8 @@ class RunnerState {
   ys: number[];
   i: number;
 
-  constructor () {
-    this.uuid = uuidv4();
+  constructor (uuid?: string) {
+    this.uuid = uuid || uuidv4();
     this.shouldRun = true;
     this.xs = [];
     this.ys = [];
@@ -57,14 +51,15 @@ const run = async (
     lr:number = 0.01, 
     T:number = 0,
     updateInterval: number = 500,
-    callback = (x,y,uuid) => {}) => 
+    callback = (x,y,uuid) => {},
+    externalUuid?:string = null) => 
 {
 
   // Stop all other currently running processes.
-  Object.keys(runners).forEach(runner => runners[uuid].shouldRun = false);
+  Object.keys(runners).forEach(uuid => runners[uuid].shouldRun = false);
   
   // Create new runner
-  const runner = new RunnerState();
+  const runner = new RunnerState(externalUuid);
   const uuid = runner.uuid;
   runners[runner.uuid] = runner;
   currentRunner = runner;
