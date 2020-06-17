@@ -1,5 +1,5 @@
 import { expose } from 'comlink';
-import { run as runOptimizer } from './runner';
+import { run as runOptimizer, OptimizerTypes } from './runner';
 import { uuidv4 } from './uuid';
 
 let currentRunner: RunnerState = null;
@@ -49,6 +49,7 @@ const run = async (
     x_init = 1,
     y_init = 1,
     gameType: string = 'unstableGame',
+    optimizer: OptimizerTypes = OptimizerTypes.SGD,
     lr:number = 0.01, 
     T:number = 0,
     updateInterval: number = 500,
@@ -68,7 +69,7 @@ const run = async (
   // Start the optimization
   let i = 0;
   let prevTimestamp = Date.now();
-  for (const point of runOptimizer(x_init, y_init, gameType, lr, T)) {
+  for (const point of runOptimizer(x_init, y_init, gameType, lr, T, optimizer)) {
     if (runner.shouldRun) {
       runner.xs.push(point.x);
       runner.ys.push(point.y);

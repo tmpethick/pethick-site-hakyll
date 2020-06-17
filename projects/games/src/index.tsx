@@ -4,17 +4,103 @@
 import * as d3 from 'd3';
 import { Remote, proxy, wrap } from 'comlink';
 import * as tf from '@tensorflow/tfjs';
+
 import { gameDict, stableGame, unstableGame } from './games';
+import { OptimizerTypes } from './runner';
 import RunnerWorker from './runner.worker';
 import { uuidv4 } from './uuid';
 
 
-
 const zip = rows => rows[0].map((_,c) => rows.map(row => row[c]));
+const colors = {
+  [OptimizerTypes.Adam]: 'red',
+  [OptimizerTypes.SGD]: 'blue',
+};
+
+class WorkerManager {
+  gameplot: GamePlot;
+  workers: Record<string,[Worker,Trajectory]>;
+  
+  constructor(owner) {
+    this.gameplot = owner;
+    this.workers = {};
+  }
+  
+  stop() {
+    for (const [worker, trajectory] of Object.values(this.workers)) {
+      if (worker != null) worker.terminate();
+    }
+    this.workers = {};
+  }
+  
+  start(x, y) {
+    this.stop();
+    this.gameplot.optimizerTypes.forEach(optimizerType => {
+      console.log(`Starting ${optimizerType}`)
+      const uuid = uuidv4();
+      const worker = new RunnerWorker();
+      const trajectory = new Trajectory(colors[optimizerType], [x,y],this.gameplot);
+      this.workers[uuid] = [worker, trajectory];
+      
+      const workerApi = wrap<import('./runner.worker').RunnerWorker>(worker);
+      workerApi.run(x, y, this.gameplot.gameType, optimizerType, this.gameplot.lr, 10000, this.gameplot.updateInterval, proxy(this.callback), uuid);
+    });
+  }
+
+  callback = (xs, ys, uuid) => {
+    if (this.workers.hasOwnProperty(uuid)) {
+      const [worker, trajectory] = this.workers[uuid];
+      trajectory.update(xs, ys);
+    }
+  }
+}
+
+
+class Trajectory {
+  gameplot: GamePlot;
+  color: string;
+  prevPoint: [number, number];
+
+  constructor(color, startPoint, gameplot) {
+    this.color = color;
+    this.prevPoint = startPoint;
+    this.gameplot = gameplot;
+  }
+
+  update = (xs, ys) => {
+    xs.unshift(this.prevPoint[0]);
+    ys.unshift(this.prevPoint[1]);
+    this.prevPoint = [xs[xs.length - 1], ys[ys.length - 1]];
+  
+    const dataStrip = zip([xs, ys]);
+    const line = d3.line()
+      .x(d => this.gameplot.x(d[0]))
+      .y(d => this.gameplot.y(d[1]))
+      .curve(d3.curveNatural)
     
+    const path = this.gameplot.svg.append("path")
+      .attr("class", "trajectory")
+      .attr("d", line(dataStrip))
+      .attr("stroke", color)
+      .attr("stroke-width", "2")
+      .attr("fill", "none");
+    
+    const totalLength = path.node().getTotalLength();
+    
+    path
+      .attr("stroke-dasharray", totalLength + " " + totalLength)
+      .attr("stroke-dashoffset", totalLength)
+      .transition()
+        .duration(this.gameplot.updateInterval)
+        .ease(d3.easeLinear)
+        .attr("stroke-dashoffset", 0);
+  }
+}
 
 class GamePlot {
+  workerManager: WorkerManager;
   gameType: string;
+  optimizerTypes: OptimizerTypes[];
   lr: number;
 
   svg: any;
@@ -24,22 +110,16 @@ class GamePlot {
   
   x: any;
   y: any;
-  
-  uuid: string;
-  prevPoint: [number, number];
-  worker: Worker;
 
-  constructor () {
-    this.lr = 0.01;
+  constructor (gameType, lr=0.01, optimizerTypes=[OptimizerTypes.Adam, OptimizerTypes.SGD]) {
+    this.gameType = gameType;
+    this.lr = lr;
+    this.optimizerTypes = optimizerTypes;
+    this.workerManager = new WorkerManager(this);
     this.updateInterval = 500;
     this.width = 500;
     this.height = 300;
     
-    this.uuid = null;
-    this.worker = null;
-    this.prevPoint = null;
-
-
     this.svg = d3.create("svg")
       .attr("viewBox", [0, 0, this.width, this.height])
       .style("display", "block")
@@ -66,7 +146,6 @@ class GamePlot {
     this.svg.selectAll(".trajectory").remove();
     
     const [x,y] = this.invertPoint(mouse);
-    this.prevPoint = [x, y];
     console.log([x, y]);
 
     // make initial animation
@@ -82,19 +161,12 @@ class GamePlot {
         .style("opacity", 1)
         .ease(d3.easeExpIn)
         .attr("r", 3)
-    
-    if (this.worker != null) this.worker.terminate();
 
-    this.worker = new RunnerWorker();
-    this.uuid = uuidv4();
-    const workerApi = wrap<import('./runner.worker').RunnerWorker>(this.worker);
-    workerApi.run(x, y, this.gameType, this.lr, 10000, this.updateInterval, proxy(this.updateTrajectory), this.uuid);
+    this.workerManager.start(x, y);
   }
 
   stop = () => {
-    this.uuid = null;
-    if (this.worker != null) this.worker.terminate();
-    this.worker = null;
+    this.workerManager.stop();
     this.svg.selectAll('.trajectory').remove();
   }
 
@@ -103,8 +175,7 @@ class GamePlot {
     this.svg.selectAll("*").remove();
   }
 
-  drawContour = (gameType: string) => {
-    this.gameType = gameType;
+  drawContour = () => {
     const gameF = gameDict[this.gameType];
 
     // Clean a potential worker
@@ -128,7 +199,6 @@ class GamePlot {
         .call(d3.axisRight(y))
         .call(g => g.select(".domain").remove())
         .call(g => g.selectAll(".tick").filter(d => y.domain().includes(d)).remove());
-    
     
     const q = 10; // The level of detail, e.g., sample every 4 pixels in x and y.
     const w = Math.ceil(this.width / q);
@@ -188,40 +258,8 @@ class GamePlot {
     svg.append("g")
         .call(yAxis);    
   }
-
-  updateTrajectory = (xs, ys, uuid) => {
-    if (this.uuid != uuid) {
-      return;
-    }
-    xs.unshift(this.prevPoint[0]);
-    ys.unshift(this.prevPoint[1]);
-    this.prevPoint = [xs[xs.length - 1], ys[ys.length - 1]];
   
-    const dataStrip = zip([xs, ys]);
-    const line = d3.line()
-      .x(d => this.x(d[0]))
-      .y(d => this.y(d[1]))
-      .curve(d3.curveNatural)
-    
-    const path = this.svg.append("path")
-      .attr("class", "trajectory")
-      .attr("d", line(dataStrip))
-      .attr("stroke", "red")
-      .attr("stroke-width", "2")
-      .attr("fill", "none");
-    
-    const totalLength = path.node().getTotalLength();
-    
-    path
-      .attr("stroke-dasharray", totalLength + " " + totalLength)
-      .attr("stroke-dashoffset", totalLength)
-      .transition()
-        .duration(this.updateInterval)
-        .ease(d3.easeLinear)
-        .attr("stroke-dashoffset", 0);
-    };
-  
-  render(selector, gameType) {
+  render(selector) {
     const root = d3.select(selector);
     root.node().append(this.svg.node());
 
@@ -233,11 +271,11 @@ class GamePlot {
       .append('option')
       .text(d => d)
       .attr("value", d => d);
-    gameTypeSelect.property('value', gameType)
+    gameTypeSelect.property('value', this.gameType)
   
     const LrInput = root.append('input');
     LrInput.attr('type', 'number')
-      .attr('value', '0.01')
+      .attr('value', this.lr)
       .attr('step', '0.01')
       .attr('min', '0.0')
       .attr('max', '1.0');
@@ -248,8 +286,8 @@ class GamePlot {
     // Event listeners
     const that = this;
     gameTypeSelect.on("change", function(d) {
-      const gameType = this.options[this.selectedIndex].value;
-      that.drawContour(gameType);
+      that.gameType = this.options[this.selectedIndex].value;
+      that.drawContour();
     });
 
     LrInput.on("input", function() {
@@ -257,15 +295,13 @@ class GamePlot {
     });
 
     stopButton.on('click', this.stop);
-      
   }
 }
 
-const gp = new GamePlot();
 const gameType = "unstableGame";
-gp.drawContour(gameType);
-gp.render('#contour', gameType);
-
+const gp = new GamePlot(gameType);
+gp.drawContour();
+gp.render('#contour');
 
 
 // TODO: 
