@@ -48,6 +48,7 @@ const getState = async () => {
 const run = async (
     x_init = 1,
     y_init = 1,
+    gameType: string = 'unstableGame',
     lr:number = 0.01, 
     T:number = 0,
     updateInterval: number = 500,
@@ -67,7 +68,7 @@ const run = async (
   // Start the optimization
   let i = 0;
   let prevTimestamp = Date.now();
-  for (const point of runOptimizer(x_init, y_init, lr, T)) {
+  for (const point of runOptimizer(x_init, y_init, gameType, lr, T)) {
     if (runner.shouldRun) {
       runner.xs.push(point.x);
       runner.ys.push(point.y);

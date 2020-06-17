@@ -4,7 +4,7 @@
 import * as d3 from 'd3';
 import { Remote, proxy, wrap } from 'comlink';
 import * as tf from '@tensorflow/tfjs';
-import { unstableGame } from './games';
+import { gameDict, stableGame, unstableGame } from './games';
 import RunnerWorker from './runner.worker';
 import { uuidv4 } from './uuid';
 
@@ -14,6 +14,9 @@ const zip = rows => rows[0].map((_,c) => rows.map(row => row[c]));
     
 
 class GamePlot {
+  gameType: string;
+  lr: number;
+
   svg: any;
   width: number;
   height: number;
@@ -27,6 +30,7 @@ class GamePlot {
   worker: Worker;
 
   constructor () {
+    this.lr = 0.01;
     this.updateInterval = 500;
     this.width = 500;
     this.height = 300;
@@ -84,10 +88,28 @@ class GamePlot {
     this.worker = new RunnerWorker();
     this.uuid = uuidv4();
     const workerApi = wrap<import('./runner.worker').RunnerWorker>(this.worker);
-    workerApi.run(x, y, 0.01, 1000, this.updateInterval, proxy(this.updateTrajectory), this.uuid);
+    workerApi.run(x, y, this.gameType, this.lr, 10000, this.updateInterval, proxy(this.updateTrajectory), this.uuid);
   }
 
-  drawContour = () => {
+  stop = () => {
+    this.uuid = null;
+    if (this.worker != null) this.worker.terminate();
+    this.worker = null;
+    this.svg.selectAll('.trajectory').remove();
+  }
+
+  reset = () => {
+    this.stop();
+    this.svg.selectAll("*").remove();
+  }
+
+  drawContour = (gameType: string) => {
+    this.gameType = gameType;
+    const gameF = gameDict[this.gameType];
+
+    // Clean a potential worker
+    this.reset();
+
     const svg = this.svg;
       
     this.x = d3.scaleLinear([-2, 2], [0, this.width]);
@@ -115,7 +137,7 @@ class GamePlot {
     const yLin = tf.linspace(-2, 2, h);
     const xx = tf.matMul( tf.ones  ([h, 1]), xLin.reshape([1, w])).flatten();
     const yy = tf.matMul( yLin.reshape([h, 1]), tf.ones  ([1, w])).flatten();
-    const zz = unstableGame(xx, yy);
+    const zz = gameF(xx, yy);
     const gridArr = zz.arraySync();
     const start = Math.min(...gridArr);
     const end = Math.max(...gridArr);
@@ -199,24 +221,63 @@ class GamePlot {
         .attr("stroke-dashoffset", 0);
     };
   
-  render(selector) {
-    d3.select(selector).node().append(this.svg.node());
+  render(selector, gameType) {
+    const root = d3.select(selector);
+    root.node().append(this.svg.node());
+
+    const gameTypeSelect = root.append('select');
+    gameTypeSelect
+      .selectAll('myOptions')
+      .data(Object.keys(gameDict))
+      .enter()
+      .append('option')
+      .text(d => d)
+      .attr("value", d => d);
+    gameTypeSelect.property('value', gameType)
+  
+    const LrInput = root.append('input');
+    LrInput.attr('type', 'number')
+      .attr('value', '0.01')
+      .attr('step', '0.01')
+      .attr('min', '0.0')
+      .attr('max', '1.0');
+
+    const stopButton = root.append('button')
+    stopButton.text('Stop');
+
+    // Event listeners
+    const that = this;
+    gameTypeSelect.on("change", function(d) {
+      const gameType = this.options[this.selectedIndex].value;
+      that.drawContour(gameType);
+    });
+
+    LrInput.on("input", function() {
+      that.lr = Number(this.value);
+    });
+
+    stopButton.on('click', this.stop);
+      
   }
 }
 
-
-// ReactDOM.render(<App/>, document.getElementById('root'));
 const gp = new GamePlot();
-gp.drawContour();
-gp.render('#contour');
+const gameType = "unstableGame";
+gp.drawContour(gameType);
+gp.render('#contour', gameType);
+
+
 
 // TODO: 
-// update environment
-  // clear currently running trajectory if any
-// update learning rate
+// update environment √ 
+  // clear currently running trajectory if any √
+// update learning rate √
 // choose methods
   // run multiple methods
-// Stop button
+// Stop button √
+// Fix mirrored contour
+// Add center/optimum
+// Generate all selectors inside class (remove from html)
 
 // TODO:
 // Fix overlapping Axis

@@ -14,3 +14,31 @@ export const unstableGame = (x, y) => {
     ));
   });
 }
+
+const phi = (z) => {
+  return tf.tidy(() => {
+    const half = tf.scalar(1/2);
+    const quarter = tf.scalar(1/4);
+    const sixth = tf.scalar(1/6);
+    return quarter.mul(z.pow(2)).sub(half.mul(z.pow(4))).add(sixth.mul(z.pow(6)));
+  });
+}
+
+export const stableGame = (x, y) => {
+  // x * (y - 0.5) + phi(x) - phi(y)
+  return tf.tidy(() => {
+    return x.mul(y.sub(0.5)).add(phi(x)).sub(phi(y));
+  });
+}
+
+export const bilinear = (x, y) => {
+  return tf.tidy(() => {
+    return x.mul(y);
+  });
+}
+
+export const gameDict = {
+  "stableGame": stableGame,
+  "unstableGame": unstableGame,
+  "bilinear": bilinear
+}
