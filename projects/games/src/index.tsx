@@ -1,14 +1,12 @@
-// import * as React from "react";
-// import * as ReactDOM from "react-dom";
-
 import * as d3 from 'd3';
 import { Remote, proxy, wrap } from 'comlink';
 import * as tf from '@tensorflow/tfjs';
 
-import { gameDict, stableGame, unstableGame } from './games';
+import { gameDict } from './games';
 import { OptimizerTypes } from './runner';
 import RunnerWorker from './runner.worker';
 import { uuidv4 } from './uuid';
+import './styles/index.scss';
 
 
 const zip = rows => rows[0].map((_,c) => rows.map(row => row[c]));
@@ -16,6 +14,43 @@ const colors = {
   [OptimizerTypes.Adam]: 'red',
   [OptimizerTypes.SGD]: 'blue',
 };
+const optimizerTypeNames = {
+  [OptimizerTypes.Adam]: 'Adam',
+  [OptimizerTypes.SGD]: 'GD',
+};
+
+function optimizerTypeCheckboxes(active=Object.keys(OptimizerTypes), onChange) {
+    let activeList = active;
+
+    const checkboxes = d3.create('div')
+      .attr('class', 'optimizertype-checkboxes');
+
+      Object.keys(OptimizerTypes).forEach(type => {
+        const id_ = `optimizer-type-${type}`;
+        let container = checkboxes.append('div');
+        let checkbox = container
+        .append('input')
+        .attr('type', 'checkbox')
+        .attr('id', id_)
+        .attr('value', type)
+        .style('background-color', colors[type])
+        .property('checked', active.includes(type))
+        .on('change', function () {
+          if (this.checked) {
+            activeList.push(this.value);
+          } else {
+            activeList = activeList.filter(v => v != this.value);
+          }
+          onChange(activeList);
+        });
+      let label = container
+        .append('label')
+        .attr('for', id_)
+        .text(optimizerTypeNames[type]);  
+    });
+  return checkboxes;
+}
+
 
 class WorkerManager {
   gameplot: GamePlot;
@@ -81,7 +116,7 @@ class Trajectory {
     const path = this.gameplot.svg.append("path")
       .attr("class", "trajectory")
       .attr("d", line(dataStrip))
-      .attr("stroke", color)
+      .attr("stroke", this.color)
       .attr("stroke-width", "2")
       .attr("fill", "none");
     
@@ -111,7 +146,7 @@ class GamePlot {
   x: any;
   y: any;
 
-  constructor (gameType, lr=0.01, optimizerTypes=[OptimizerTypes.Adam, OptimizerTypes.SGD]) {
+  constructor (gameType, lr=0.01, optimizerTypes: OptimizerTypes[]=Object.keys(OptimizerTypes)) {
     this.gameType = gameType;
     this.lr = lr;
     this.optimizerTypes = optimizerTypes;
@@ -121,10 +156,11 @@ class GamePlot {
     this.height = 300;
     
     this.svg = d3.create("svg")
-      .attr("viewBox", [0, 0, this.width, this.height])
+      .attr("viewBox", [-10, -10, this.width, this.height])
       .style("display", "block")
       .style("cursor", 'pointer')
-      .style("margin", "0 -14px");
+      .style("margin", "0")
+      .style("margin-bottom", "1em");
 
     this.svg.append("g")
         .attr("fill", "none")
@@ -149,12 +185,16 @@ class GamePlot {
     console.log([x, y]);
 
     // make initial animation
+    let color = 'black';
+    if (this.optimizerTypes.length == 1) {
+      color = colors[this.optimizerTypes[0]];
+    }
     const circle = this.svg.append("circle")
       .attr("class", "trajectory")
       .attr("cx", mouse[0])
       .attr("cy", mouse[1])
-      .style("fill", "red")
-      .attr("r",8)
+      .style("fill", color)
+      .attr("r", 8)
       .style("opacity", 0)
       .transition()
         .duration(500)
@@ -167,7 +207,7 @@ class GamePlot {
 
   stop = () => {
     this.workerManager.stop();
-    this.svg.selectAll('.trajectory').remove();
+    // this.svg.selectAll('.trajectory').remove();
   }
 
   reset = () => {
@@ -253,17 +293,27 @@ class GamePlot {
     
     svg.append("g")
         .call(xAxis)
-        .attr("transform", "translate(0," + (this.height - 10) + ")")
+        .attr("transform", "translate(0," + (this.height - 10) + ")");
     
     svg.append("g")
-        .call(yAxis);    
+        .call(yAxis)
+        .attr("transform", "translate(-10,0)");
   }
   
   render(selector) {
+    const that = this;
     const root = d3.select(selector);
     root.node().append(this.svg.node());
+    const controllers = root.append('div').attr('class', 'controllers');
 
-    const gameTypeSelect = root.append('select');
+    // Checkbox
+    const checkboxes = optimizerTypeCheckboxes(this.optimizerTypes, optimizerTypes => {
+      that.optimizerTypes = optimizerTypes;
+    });,
+    controllers.node().append(checkboxes.node());
+
+    // Game type selector
+    const gameTypeSelect = controllers.append('select');
     gameTypeSelect
       .selectAll('myOptions')
       .data(Object.keys(gameDict))
@@ -273,18 +323,19 @@ class GamePlot {
       .attr("value", d => d);
     gameTypeSelect.property('value', this.gameType)
   
-    const LrInput = root.append('input');
+    // Step size input
+    const LrInput = controllers.append('input');
     LrInput.attr('type', 'number')
       .attr('value', this.lr)
       .attr('step', '0.01')
       .attr('min', '0.0')
       .attr('max', '1.0');
 
-    const stopButton = root.append('button')
+    // Stop button
+    const stopButton = controllers.append('button')
     stopButton.text('Stop');
 
     // Event listeners
-    const that = this;
     gameTypeSelect.on("change", function(d) {
       that.gameType = this.options[this.selectedIndex].value;
       that.drawContour();
@@ -294,6 +345,7 @@ class GamePlot {
       that.lr = Number(this.value);
     });
 
+    
     stopButton.on('click', this.stop);
   }
 }
@@ -308,16 +360,16 @@ gp.render('#contour');
 // update environment √ 
   // clear currently running trajectory if any √
 // update learning rate √
-// choose methods
-  // run multiple methods
+// run multiple methods √
 // Stop button √
-// Fix mirrored contour
+// choose methods √ 
 // Add center/optimum
-// Generate all selectors inside class (remove from html)
+// Fix mirrored contour
+// Generate all selectors inside class (remove from html) √
 
 // TODO:
-// Fix overlapping Axis
-// Fix overflowing borders
+// Fix overlapping Axis √
+// Fix overflowing borders √
 // Fix weird corner
 // Fix trajectory connecting wierdly
 // Fix trajectory lacking connection

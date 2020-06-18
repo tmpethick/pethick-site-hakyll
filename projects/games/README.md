@@ -38,3 +38,5 @@ const y = X.slice([0,1], [-1, 2]).as1D();
   - https://observablehq.com/@d3/connected-scatterplot
 - Contour 
   - https://observablehq.com/@d3/contours?collection=@d3/d3-contour
+- Flexbox
+  - https://css-tricks.com/snippets/css/a-guide-to-flexbox/

@@ -11,13 +11,16 @@
   "author": "Thomas Pethick",
   "devDependencies": {
     "@tensorflow/tfjs": "^2.0.0",
-    "@types/react": "^16.9.35",
-    "@types/react-dom": "^16.9.8",
     "@types/webgl2": "0.0.5",
+    "@types/d3": "^5.7.2",
     "comlink-loader": "^2.0.0",
     "concurrently": "^3.5.0",
+    "css-loader": "^3.6.0",
     "lite-server": "^2.3.0",
+    "sass": "^1.26.8",
+    "sass-loader": "^8.0.2",
     "source-map-loader": "^1.0.0",
+    "style-loader": "^1.2.1",
     "ts-loader": "^7.0.5",
     "tslint": "^6.1.2",
     "typescript": "^2.9.2",
@@ -26,15 +29,9 @@
     "worker-loader": "^2.0.0"
   },
   "dependencies": {
-    "@types/d3": "^5.7.2",
     "comlink": "^4.3.0",
     "d3": "^5.16.0",
     "immutable": "^4.0.0-rc.12",
-    "lodash": "^4.17.15",
-    "plotly": "^1.0.6",
-    "plotly.js": "^1.54.1",
-    "react": "^16.13.1",
-    "react-dom": "^16.13.1",
-    "react-plotly.js": "^2.4.0"
+    "lodash": "^4.17.15"
   }
 }

@@ -2,8 +2,8 @@ import * as tf from '@tensorflow/tfjs';
 import { gameDict } from './games';
 
 export enum OptimizerTypes {
-  Adam,
-  SGD,
+  Adam = 'Adam',
+  SGD = 'SGD',
 }
 
 export function* run(
