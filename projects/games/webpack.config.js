@@ -8,7 +8,7 @@ const devtool = mode == 'production' ? false : 'cheap-source-map';
 module.exports = {
   entry: {
     app: './src/index.tsx',
-    vendor: ['react', 'react-dom']
+    // vendor: ['react', 'react-dom']
   },
   mode,
   devtool: false,

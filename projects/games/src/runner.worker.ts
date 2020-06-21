@@ -54,7 +54,7 @@ const run = async (
     T:number = 0,
     updateInterval: number = 500,
     callback = (x,y,uuid) => {},
-    externalUuid?:string = null) => 
+    externalUuid:string = null) => 
 {
 
   // Stop all other currently running processes.

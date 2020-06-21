@@ -1,18 +1,24 @@
 import * as tf from '@tensorflow/tfjs';
 
-/**
- * x*y + 0.01 * ((1/2) * y ** 2 - 1/4 * y ** 4)
- * @param x, y
- */
-export const unstableGame = (x, y) => {
-  return tf.tidy(() => {
-    const epsilon = tf.scalar(0.01);
-    const half = tf.scalar(1/2);
-    const quarter = tf.scalar(1/4);
-    return x.mul(y).add(epsilon.mul(
-      half.mul(y.pow(2)).sub(quarter.mul(y.pow(4)))
-    ));
-  });
+interface Game {
+  criticalPoint: number[];
+  f: (x: number, y: number) => tf.Scalar;
+}
+
+export class UnstableGame implements Game {
+  criticalPoint = [0, 0];
+  
+  f = (x,y) => {
+    // x*y + 0.01 * ((1/2) * y ** 2 - 1/4 * y ** 4)
+    return tf.tidy(() => {
+      const epsilon = tf.scalar(0.01);
+      const half = tf.scalar(1/2);
+      const quarter = tf.scalar(1/4);
+      return x.mul(y).add(epsilon.mul(
+        half.mul(y.pow(2)).sub(quarter.mul(y.pow(4)))
+      ));
+    });
+  }
 }
 
 const phi = (z) => {
@@ -24,21 +30,30 @@ const phi = (z) => {
   });
 }
 
-export const stableGame = (x, y) => {
-  // x * (y - 0.5) + phi(x) - phi(y)
-  return tf.tidy(() => {
-    return x.mul(y.sub(0.5)).add(phi(x)).sub(phi(y));
-  });
+export class StableGame implements Game {
+  criticalPoint = [0, 0.5];
+  
+  f = (x,y) => {
+    // x * (y - 0.5) + phi(x) - phi(y)
+    return tf.tidy(() => {
+      return x.mul(y.sub(0.5)).add(phi(x)).sub(phi(y));
+    });
+  }
 }
 
-export const bilinear = (x, y) => {
-  return tf.tidy(() => {
-    return x.mul(y);
-  });
+export class Bilinear implements Game {
+  criticalPoint = [0, 0];
+  
+  f = (x,y) => {
+    // x * (y - 0.5) + phi(x) - phi(y)
+    return tf.tidy(() => {
+      return x.mul(y);
+    });
+  }
 }
-
+  
 export const gameDict = {
-  "stableGame": stableGame,
-  "unstableGame": unstableGame,
-  "bilinear": bilinear
+  "stableGame": StableGame,
+  "unstableGame": UnstableGame,
+  "bilinear": Bilinear
 }
