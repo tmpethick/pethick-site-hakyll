@@ -16,7 +16,14 @@ export interface GameState {
   lr: number;
 }
 
+export interface GameDisplaySetting {
+  interactive: boolean;
+  showAxes: boolean;
+}
+
 export class GamePlot {
+  interactive: boolean;
+  displaySetting: GameDisplaySetting;
   state: GameState;
   storage: Storage;
   workerManager: WorkerManager;
@@ -26,8 +33,9 @@ export class GamePlot {
   updateInterval: number;
   x: any;
   y: any;
-  constructor(state: GameState, storage: Storage) {
+  constructor(state: GameState, storage: Storage, displaySetting: GameDisplaySetting = {interactive: true, showAxes: true}) {
     this.state = state;
+    this.displaySetting = displaySetting;
     this.storage = storage;
     this.workerManager = new WorkerManager(this);
     this.updateInterval = 500;
@@ -155,12 +163,11 @@ export class GamePlot {
       .attr("cy", y(game.criticalPoint[1]))
       .style("fill", 'black')
       .attr("r", 5);
-    svg.append("g")
-      .call(xAxis);
-    //.attr("transform", "translate(0," + (this.height - 10) + ")");
-    svg.append("g")
-      .call(yAxis);
-    //.attr("transform", "translate(-10,0)");
+
+    if (this.displaySetting.showAxes) {
+      svg.append("g").call(xAxis);
+      svg.append("g").call(yAxis);
+    }
   };
   share = () => {
     const ts: Trajectory[] = Object.values(this.workerManager.workers).map(([r, w, t]) => t);
@@ -188,6 +195,11 @@ export class GamePlot {
     root.node().appendChild(this.svg.node());
     // Draw contour
     this.drawContour();
+
+    if (!this.displaySetting.interactive) {
+      return;
+    }
+
     // Container for controllers
     const controllers = root.append('div').attr('class', 'controllers');
     // Checkbox

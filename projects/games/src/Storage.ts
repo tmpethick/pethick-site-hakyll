@@ -29,12 +29,12 @@ export class Storage {
     'h': this.compressPath(trajectory.history),
   });
   decompressTrajectory = (t) => {
-    console.log(t);
     const history = _.cloneDeep(this.decompressPath(t.h));
     const trajectory = new Trajectory(t.o, colors[t.o], null, null, history);
     return trajectory;
   };
   write = (state, trajectories) => {
+    // trajectories.map(t => console.log(JSON.stringify(t.history)));
     const compressedTrajectories = trajectories.map(this.compressTrajectory);
     const stateJSON = JSON.stringify(state);
     const compressedTrajectoriesJSON = JSON.stringify(compressedTrajectories);
@@ -44,10 +44,8 @@ export class Storage {
     const shareUrl = url[0] + '?' + strCompressed;
     return shareUrl;
   };
-  read = (shareUrl) => {
-    let raw = shareUrl;
-    raw = raw.substr(1); // remove "?"
-    raw = LZString.decompressFromEncodedURIComponent(raw);
+  read = (input) => {
+    const raw = LZString.decompressFromEncodedURIComponent(input);
     const [stateJSON, compressedTrajectoriesJSON] = raw.split('|');
     const [state, compressedTrajectories] = [JSON.parse(stateJSON), JSON.parse(compressedTrajectoriesJSON)];
     const trajectories = compressedTrajectories.map(this.decompressTrajectory);

@@ -4,6 +4,7 @@ const path = require('path');
 // const mode = isProduction ? 'production' : 'development';
 const mode = 'development';
 const devtool = mode == 'production' ? false : 'cheap-source-map';
+const workerOptions = mod == 'production' ? { publicPath: '/projects/games/dist/', } : {};
 
 module.exports = {
   entry: {
@@ -16,7 +17,10 @@ module.exports = {
     rules: [
       {
         test: /\.worker\.(js|ts)$/i,
-        use: 'worker-loader',
+        use: { 
+          loader: 'worker-loader',
+          options: workerOptions,
+        },
         exclude: /node_modules/,
       },
       {
