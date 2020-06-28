@@ -2,9 +2,9 @@ const path = require('path');
 
 // const isProduction = typeof NODE_ENV !== 'undefined' && NODE_ENV === 'production';
 // const mode = isProduction ? 'production' : 'development';
-const mode = 'development';
+const mode = 'production';
 const devtool = mode == 'production' ? false : 'cheap-source-map';
-const workerOptions = mod == 'production' ? { publicPath: '/projects/games/dist/', } : {};
+const workerOptions = mode == 'production' ? { publicPath: '/projects/games/dist/', } : {};
 
 module.exports = {
   entry: {

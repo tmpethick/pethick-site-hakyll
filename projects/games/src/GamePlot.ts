@@ -9,6 +9,7 @@ import { optimizerTypeCheckboxes, colors } from './optimizerTypeCheckboxes';
 import { WorkerManager } from './WorkerManager';
 import { Trajectory } from './Trajectory';
 import { Storage } from "./Storage";
+import { uuidv4 } from './uuid';
 
 export interface GameState {
   gameType: string;
@@ -208,9 +209,16 @@ export class GamePlot {
     });
     controllers.node().appendChild(checkboxes.node());
     // Game type selector
-    const gameTypeSelect = controllers.append('select');
+    let id_ = `${uuidv4()}`;
+    const gameTypeContainer = controllers.append('div')
+      .attr('class', 'input-container');
+    gameTypeContainer.append('label')
+    .attr('for', id_)
+    .text('Game');
+    const gameTypeSelect = gameTypeContainer.append('select')
+      .attr('id', id_);
     gameTypeSelect
-      .selectAll('myOptions')
+      .selectAll()
       .data(Object.keys(gameDict))
       .enter()
       .append('option')
@@ -218,9 +226,16 @@ export class GamePlot {
       .attr("value", d => d);
     gameTypeSelect.property('value', this.state.gameType);
     // Step size input
-    const LrInput = controllers.append('input');
+    id_ = `${uuidv4()}`;
+    const LrContainer = controllers.append('div')
+      .attr('class', 'input-container');
+    LrContainer.append('label')
+      .attr('for', id_)
+      .text('Step size');
+    const LrInput = LrContainer.append('input');
     LrInput.attr('type', 'number')
       .attr('value', this.state.lr)
+      .attr('id', id_)
       .attr('step', '0.01')
       .attr('min', '0.0')
       .attr('max', '1.0');
@@ -228,8 +243,15 @@ export class GamePlot {
     const stopButton = controllers.append('button');
     stopButton.text('Stop');
     // Share button
-    const shareButton = controllers.append('button');
-    shareButton.text('Share');
+    const shareButton = controllers.append('div')
+      .attr('class', 'tooltip')
+      .text('Share');
+    shareButton.append('span')
+      .attr('class', 'tooltiptext')
+      .text('Copy shareable link to clipboard');
+    shareButton.append('span')
+      .attr('class', 'tooltiptext--success')
+      .text('Copied to clipboard!');
     // Event listeners
     gameTypeSelect.on("change", function (d) {
       that.state.gameType = this.options[this.selectedIndex].value;
@@ -238,7 +260,12 @@ export class GamePlot {
     LrInput.on("input", function () {
       that.state.lr = Number(this.value);
     });
-    shareButton.on('click', this.share);
+    shareButton.on('click', () => {
+      this.share();
+      shareButton.node().classList.add('clicked');
+      setTimeout(() => shareButton.node().classList.remove('clicked'), 1000);
+    });
+
     stopButton.on('click', this.stop);
   }
 }
