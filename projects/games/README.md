@@ -19,10 +19,26 @@ const y = X.slice([0,1], [-1, 2]).as1D();
 
 - [x] Implement functions
 - [x] Training loop
-- [ ] Plot contour plot
-- [ ] Plot trajectory
-- [ ] Update trajectory
-
+- [x] Plot contour plot
+- [x] Plot trajectory
+- [x] Update trajectory
+- [x] update environment  
+  - [x] clear currently running trajectory if any 
+- [x] update learning rate 
+- [x] run multiple methods 
+- [x] Stop button 
+- [x] choose methods  
+- [x] Add center/optimum 
+- [x] Fix mirrored contour 
+- [x] Initial trajectory 
+- [x] Generate all selectors inside class (remove from html) 
+- [x] Fix overlapping Axis 
+- [x] Fix overflowing borders 
+- [x] make path sharable (reduce number of points, create sharable link) 
+  - [x] simplify path (d3? round intergers) 
+  - [x] change and read URL 
+- [x] Other methods (LD, CGD)
+- [] Fix firefox runner
 
 ## Resources
 

@@ -71,28 +71,3 @@ loadFromState('#contour-wild', {
   optimizerTypes: OptimizerTypes.SGD
 });
 
-
-// TODO: 
-// update environment √ 
-  // clear currently running trajectory if any √
-// update learning rate √
-// run multiple methods √
-// Stop button √
-// choose methods √ 
-// Add center/optimum √
-// Fix mirrored contour √√
-// Initial trajectory √√
-// Generate all selectors inside class (remove from html) √
-// Fix overlapping Axis √
-// Fix overflowing borders √
-// make path sharable (reduce number of points, create sharable link)
-  // simplify path (d3? round intergers)
-  // change and read URL
-// Other methods (LD, CGD)
-// Fix firefox runner
-
-
-// Narrative:
-// Show bilinear game
-// Show when shielded
-// Add weird case for GD on stableGame at the end
