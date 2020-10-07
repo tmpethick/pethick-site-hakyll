@@ -10,14 +10,14 @@ We assume we are given an imperfect model $F_i(x)$ and we want to improve it by 
 
 $$F_{t+1}(x) = F_t(x) + h_t(x).$$
 
-If we chose the perfect $h_i(x)$ this would simply be
+If we chose the perfect $h_t(x)$ this would simply be
 
-$$y_i = F_t(x_i) + h_t(x_i) \Leftrightarrow h_t(x_i) = y_i - F_t(x) \text{ for all } i=1..N.$$
+$$y_i = F_t(x_i) + h_t(x_i) \Leftrightarrow h_t(x_i) = y_i - F_t(x_i) \text{ for all } i=1..N.$$
 
 For the square loss 
 
 $$
-J = \sum_{i=1}^N (y-F(x))^{2} / 2,
+J = \sum_{i=1}^N (y_i-F_t(x_i))^{2} / 2,
 $$
 
 this turns out to simply be equivalent to the negative gradient of the loss, i.e.
