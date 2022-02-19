@@ -4,9 +4,6 @@ import { gameDict } from './games';
 export enum OptimizerTypes {
   Adam = 'Adam',
   SGD = 'SGD',
-  Momentum = 'Momentum',
-  // OGDA = 'OGDA',
-  // EG = 'EG'
 }
 
 export function* run(
@@ -30,18 +27,6 @@ export function* run(
   if (optimizer == OptimizerTypes.Adam) {
     optimizer_x1 = tf.train.adam(lr);
     optimizer_x2 = tf.train.adam(lr);
-  } else if (optimizer == OptimizerTypes.Momentum) {
-    let mom = 0.9
-    optimizer_x1 = tf.train.momentum(lr, mom, false);
-    optimizer_x2 = tf.train.momentum(lr, mom, false);  
-  } else if (optimizer == OptimizerTypes.OGDA) {
-    let mom = 0.9
-    optimizer_x1 = tf.train.momentum(lr, mom);
-    optimizer_x2 = tf.train.momentum(lr, mom);  
-  } else if (optimizer == OptimizerTypes.EG) {
-    let mom = 0.9
-    optimizer_x1 = tf.train.momentum(lr, mom);
-    optimizer_x2 = tf.train.momentum(lr, mom);  
   } else if (optimizer == OptimizerTypes.SGD) {
     optimizer_x1 = tf.train.sgd(lr);
     optimizer_x2 = tf.train.sgd(lr);  
