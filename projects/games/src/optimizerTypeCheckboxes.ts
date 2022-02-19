@@ -6,12 +6,14 @@ import { OptimizerTypes } from './runner';
 export const colors = {
   [OptimizerTypes.Adam]: 'red',
   [OptimizerTypes.SGD]: 'blue',
+  [OptimizerTypes.Momentum]: 'orange',
 };
 
 
 export const optimizerTypeNames = {
   [OptimizerTypes.Adam]: 'Adam',
   [OptimizerTypes.SGD]: 'GD',
+  [OptimizerTypes.Momentum]: 'Momentum',
 };
 
 

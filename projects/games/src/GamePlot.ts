@@ -263,7 +263,7 @@ export class GamePlot {
     shareButton.on('click', () => {
       this.share();
       shareButton.node().classList.add('clicked');
-      setTimeout(() => shareButton.node().classList.remove('clicked'), 1000);
+      setTimeout(() => shareButton.node().classList.remove('clicked'), 2000);
     });
 
     stopButton.on('click', this.stop);

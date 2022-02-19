@@ -265,6 +265,10 @@ figure,
   padding: 0 40px;
 }
 
+figure.figure-fullwidth {
+  padding: 0;
+}
+
 img {
   /* Prevent it from stretching on mobile */
   height: auto;

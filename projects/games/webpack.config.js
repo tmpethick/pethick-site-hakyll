@@ -1,10 +1,11 @@
 const path = require('path');
 
-// const isProduction = typeof NODE_ENV !== 'undefined' && NODE_ENV === 'production';
-// const mode = isProduction ? 'production' : 'development';
-const mode = 'production';
-const devtool = mode == 'production' ? false : 'cheap-source-map';
-const workerOptions = mode == 'production' ? { publicPath: '/projects/games/dist/', } : {};
+const isProduction = typeof NODE_ENV !== 'undefined' && NODE_ENV === 'production';
+const isBlogDev = typeof NODE_ENV !== 'undefined' && NODE_ENV === 'blog-dev';
+const isDev = typeof NODE_ENV !== 'undefined' && NODE_ENV === 'development';
+const mode = isProduction ? 'production' : 'development';
+const devtool = isProduction ? false : 'cheap-source-map';
+const workerOptions = isDev ? {} : { publicPath: '/projects/games/dist/', };
 
 module.exports = {
   entry: {

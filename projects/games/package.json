@@ -5,8 +5,9 @@
   "scripts": {
     "lite": "lite-server --baseDir=dist",
     "start": "concurrently \"npm run watch\" \"npm run lite\" ",
-    "watch": "cp index.html dist/index.html && webpack --watch",
-    "build": "webpack --mode=production && cp index.html dist/index.html"
+    "watch": "cp index.html dist/index.html && env NODE_ENV=development webpack --watch",
+    "watch-blog": "cp index.html dist/index.html && env NODE_ENV=blog-dev webpack --watch",
+    "build": "env NODE_ENV=production webpack && cp index.html dist/index.html"
   },
   "author": "Thomas Pethick",
   "devDependencies": {

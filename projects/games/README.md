@@ -15,6 +15,11 @@ const x = X.slice([0,0], [-1, 1]).as1D();
 const y = X.slice([0,1], [-1, 2]).as1D();
 ```
 
+## TODO 
+
+- [ ] Fix outline in firefox
+- [ ] Fix WebGL for tsjs in firefox
+
 ## Useful Resources
 
 - [Tensorflow.js documentation](https://js.tensorflow.org/api/latest/)
