@@ -1,6 +1,6 @@
 -----
 title: Provably Beneficial Artificial Intelligence by Stuart Russell
-preamble: \usepackage{cleveref}\usepackage{amsmath}\usepackage{braket}\usepackage{amssymb}\usepackage{amsthm}\usepackage[utf8]{inputenc}
+preamble: \usepackage{amsmath}\usepackage{braket}\usepackage{amssymb}\usepackage{amsthm}\usepackage[utf8]{inputenc}\usepackage{cleveref}
 -----
 
 Stuart Russell came to EPFL last Friday to talk about his new book on [Human Compatible: Artificial Intelligence and the Problem of Control][book].

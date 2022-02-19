@@ -1,6 +1,6 @@
 -----
 title: Hedge and Bandits
-preamble: \usepackage{cleveref}\usepackage{amsmath}\usepackage{braket}\usepackage{amssymb}\usepackage{amsthm}\usepackage[utf8]{inputenc}
+preamble: \usepackage{amsmath}\usepackage{braket}\usepackage{amssymb}\usepackage{amsthm}\usepackage[utf8]{inputenc}\usepackage{cleveref}
 link-citations: true
 -----
 
@@ -46,12 +46,12 @@ $$p_{t}=\underset{p \in \Delta(N)}{\operatorname{argmin}}\left\langle p, \sum_{\
 </div>
 
 ## Regret Bounds
-For the regret bound to go through we need to prove that the negative entropy function is strongly convex w.r.t. the $L_1$-norm,
+For the regret bound to go through we need to prove that the negative entropy function is strongly convex w.r.t. the $\ell_1$-norm,
 <!-- TODO: explain choice of L1-norm -->
 
 $$\psi(p)-\psi(q) \leq\langle\nabla \psi(p), p-q\rangle-\frac{1}{2}\|p-q\|_{1}^{2}.$$
 
-Under the $L_1$-norm this reduces to the well-known Pinsker's inequality which relates the total variation distance (or half the $L_1$-norm) with the KL-divergence[^1],
+Under the $\ell_1$-norm this reduces to the well-known Pinsker's inequality which relates the total variation distance (or half the $\ell_1$-norm) with the KL-divergence[^1],
 
 [^1]: We need the deriatives of negative entropy:<br>
   $\partial \psi(p)/\partial p(i) = \ln p(i) + 1.$
@@ -74,7 +74,7 @@ We need to bound the dual norm of gradient and the term depending on the negativ
 For the former term we can bound it through the loss,
 
 $$\begin{aligned} \left\|\nabla_{t} f\left(\mathbf x_{t}\right)\right\|_{*}
-& = \left\|\nabla_{t} f\left(\mathbf x_{t}\right)\right\|_{\infty} && \text{(dual for $L_1$)} \\
+& = \left\|\nabla_{t} f\left(\mathbf x_{t}\right)\right\|_{\infty} && \text{(dual for $\ell_1$)} \\
 &= \left\|\ell_t \right\|_{\infty} && \text{(gradient of linear loss)} \\
 &\leq 1 && \text{(assumed boundedness of loss)}\end{aligned}$$
 
@@ -247,7 +247,7 @@ This method goes by many other names in the literature apart from Hedge: Exponen
 
 ## Exercises: 
 
-- What happens if we choose a different norm than L1?
+- What happens if we choose a different norm than $\ell_1$?
 - What about a different regularizer than negative entropy?
 
 <!-- 

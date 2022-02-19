@@ -1,6 +1,6 @@
 -----
 title: Acceleration convergence using a potential function
-preamble: \usepackage{cleveref}\usepackage{amsmath}\usepackage{braket}\usepackage{amssymb}\usepackage{amsthm}\usepackage[utf8]{inputenc}\usepackage[dvipsnames]{xcolor}\usepackage{cancel}
+preamble: \usepackage{amsmath}\usepackage{braket}\usepackage{amssymb}\usepackage{amsthm}\usepackage[utf8]{inputenc}\usepackage{cleveref}\usepackage[dvipsnames]{xcolor}\usepackage{cancel}
 link-citations: true
 -----
 
@@ -160,4 +160,4 @@ The crucial observation is that we bound $z_t$ in terms of the norm and $y_t$ in
 This technique is further exploited in [Mirr+Grad paper][2] for general Mirror maps in the aggressive update, $z_t$.
 
 [1]: https://arxiv.org/pdf/1712.04581.pdf
-[2]: (https://arxiv.org/pdf/1407.1537.pdf)
+[2]: https://arxiv.org/pdf/1407.1537.pdf
