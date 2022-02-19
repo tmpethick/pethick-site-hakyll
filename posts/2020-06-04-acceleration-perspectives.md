@@ -141,7 +141,7 @@ y_{t+1} &= y_t + v_{k+1}
 
 Source: [acceleration as momentum][3] (appendix).
 
-## For sampling
+<!-- ## For sampling
 
 Underdamped LD has a momentum interpretation.
 So we can now rewrite this interpretation to AGM1 and then to AGM2 to obtain a primal-dual interpretation of acceleration in sampling.
@@ -165,9 +165,6 @@ Kinetic Langevin Monte Carlo (KLMC) above was introduced in [(Cheng et al. 2017)
 With the exposition above taken from [(Dalalyan et al. 2018)][dalalyanSamplingLogconcaveDensity2018].
 ****
 
-[1]: https://link.springer.com/content/pdf/10.1007/s10107-013-0653-0.pdf
-[2]: https://arxiv.org/pdf/1712.04581.pdf
-[3]: http://proceedings.mlr.press/v28/sutskever13.pdf
 
 [accMCMC]: https://arxiv.org/pdf/1902.00996.pdf
 [chengSharpConvergenceRates2019c]: https://arxiv.org/pdf/1805.01648v1.pdf
@@ -175,4 +172,8 @@ With the exposition above taken from [(Dalalyan et al. 2018)][dalalyanSamplingLo
 [chengUnderdampedLangevinMCMC2018]: https://arxiv.org/pdf/1707.03663.pdf
 
 
-For non-log-concave (eq 20) uses a very similar Lyapunov function: https://arxiv.org/pdf/1805.01648v1.pdf
+For non-log-concave (eq 20) uses a very similar Lyapunov function: https://arxiv.org/pdf/1805.01648v1.pdf -->
+
+[1]: https://link.springer.com/content/pdf/10.1007/s10107-013-0653-0.pdf
+[2]: https://arxiv.org/pdf/1712.04581.pdf
+[3]: http://proceedings.mlr.press/v28/sutskever13.pdf
