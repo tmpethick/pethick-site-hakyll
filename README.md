@@ -8,13 +8,15 @@ This is the source code for my personal blog.
 Requirements:
 
 ```
-cabal install pandoc-crossref
-cabal install pandoc-sidenote
+cabal install pandoc-2.1.3
+cabal install pandoc-crossref-0.3.1.0
+cabal install pandoc-sidenote-0.19.0.0
 ```
 
 To do a full rebuild and start watching the files:
 
 ```
+PATH=/Users/tmpethick/Library/Haskell/bin:$PATH
 stack build && stack exec site rebuild && stack exec site watch
 ```
 
@@ -29,6 +31,8 @@ node livereload.js
 ```
 ./deploy
 ```
+
+**Warning**: This will build using the local version *including uncommitted files*.
 
 # TODO
 
