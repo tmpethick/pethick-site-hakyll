@@ -1,0 +1,12 @@
+<div class="page">
+<h1 class="page-title">Publications</h1>
+<br/>
+    $for(publications)$
+    <b>$title$</b><br/>
+        $authors$<br/>
+        <em>$conference$</em><br/>
+        $if(paper)$<a href="$paper$">paper</a>$endif$
+        $if(code)$<a href="$code$">code</a>$endif$
+    $sep$<hr/>
+    $endfor$
+</div>

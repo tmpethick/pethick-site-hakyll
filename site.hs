@@ -158,6 +158,21 @@ main = do
                 >>= relativizeUrls
                 >>= cleanIndexUrls
 
+        create ["publications.html"] $ do
+            route cleanRoute
+            compile $ do
+                publications <- recentFirst =<< loadAll "publications/*"
+                let pubCtx = 
+                        listField "publications" postCtx (return publications) `mappend`
+                        constField "title" "Publications"                      `mappend`
+                        defaultContext
+
+                makeItem ""
+                    >>= loadAndApplyTemplate "templates/publications.html" pubCtx
+                    >>= loadAndApplyTemplate "templates/default.html" pubCtx
+                    >>= relativizeUrls  
+                    >>= cleanIndexUrls
+        
         create ["archive.html"] $ do
             route cleanRoute
             compile $ do
@@ -172,7 +187,17 @@ main = do
                     >>= loadAndApplyTemplate "templates/default.html" archiveCtx
                     >>= relativizeUrls
                     >>= cleanIndexUrls
-        
+
+        -- Publications/posts needs to be compiled in order for the list views to detect them
+        -- TODO: avoid generating individual publication pages
+        match ("publications/*.markdown" .||. "publications/*.md") $ do
+            route cleanRoute
+            compile $ bibtexCompiler renderFormulae
+                    >>= bumpHeadings
+                    >>= loadAndApplyTemplate "templates/publication-abstract.html"    postCtx
+                    >>= relativizeUrls
+                    >>= cleanIndexUrls
+
         match ("posts/*.markdown" .||. "posts/*.md") $ do
             route cleanRoute
             compile $ bibtexCompiler renderFormulae
@@ -182,6 +207,7 @@ main = do
                     >>= relativizeUrls
                     >>= cleanIndexUrls
 
+            
 --------------------------------------------------------------------------------
 
 bibtexCompiler renderFormulae = do 
