@@ -11,7 +11,7 @@ stack exec site build
 
 # Get previous files
 git fetch --all
-git checkout master
+git checkout -b master --track origin/master
 
 # Overwrite existing files with new files
 yes | cp -a _site/. .
@@ -25,4 +25,5 @@ git push origin master:master
 
 # Restoration
 git checkout develop
+git branch -D master
 git stash pop
