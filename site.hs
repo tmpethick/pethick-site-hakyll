@@ -113,13 +113,13 @@ main :: IO ()
 main = do
     renderFormulae <- initFormulaCompilerDataURI 1000 defaultEnv
     hakyll $ do
-        match "projects/games/dist/*" $ do
-            route   idRoute
-            compile copyFileCompiler
+        -- match "projects/games/dist/*" $ do
+        --     route   idRoute
+        --     compile copyFileCompiler
 
-        match "projects/games/dist/**/*" $ do
-            route   idRoute
-            compile copyFileCompiler
+        -- match "projects/games/dist/**/*" $ do
+        --     route   idRoute
+        --     compile copyFileCompiler
     
         match "files/*" $ do
             route   idRoute
